@@ -1,15 +1,7 @@
 import * as esbuild from 'esbuild'
+import config from './esbuild.json' with { type: "json" };
 
-await esbuild.build({
-  entryPoints: ['src/scripts/index.js'],
-  bundle: true,
-  minify: true,
-  sourcemap: true,
-  outdir: 'www/js',
-})
+config.define = { IS_PRODUCTION: 'true' };
+config.minify = true;
 
-await esbuild.build({
-  entryPoints: ['src/styles/index.css'],
-  bundle: true,
-  outdir: 'www/css',
-})
+await esbuild.build(config);

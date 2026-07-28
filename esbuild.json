@@ -1,0 +1,8 @@
+{
+  "entryPoints": [
+    { "out": "js/index",  "in": "src/scripts/index.js" },
+    { "out": "css/index", "in": "src/styles/index.css" }
+  ],
+  "bundle": true,
+  "outdir": "www"
+}
