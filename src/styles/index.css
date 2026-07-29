@@ -3,7 +3,7 @@
 html {
   display: table;
   margin: 0 auto;
-  background-color: green;
+  background-color: #008080;
 }
 
 body {
@@ -11,33 +11,11 @@ body {
   vertical-align: middle;
   width: 100vw;
   max-width: 800px;
-  background-color: white;
-  padding: 0 2em 0 1em;
+  background-color: #202020;
+  color: #c5c5c5;
+  padding: 0 1em;
 }
 
-.QListOuter {
-  column-width: 200px;
-  column-gap: 4em;
-}
-
-li {
-  break-inside: avoid-column;
-}
-
-.QListInner {
-  list-style-type: lower-latin;
-}
-
-.ButtonPanel {
-  margin-bottom: 1em;
-}
-
-.Answer {
+.QuestionSet {
   display: flex;
-  justify-content: flex-end;
-  color: green;
-}
-
-.AnswerInvisible {
-  visibility: hidden;
 }

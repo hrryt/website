@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import QuadraticEquationQuestionSet from '../components/QuadraticEquationQuestionSet.jsx';
+import TestQuestionPanel from '../components/TestQuestionPanel.jsx';
 
 function renderComponent(id, component) {
   node = document.getElementById(id);
@@ -9,4 +9,4 @@ function renderComponent(id, component) {
   root.render(createElement(component));
 }
 
-renderComponent('quadratic-equation-question-set', QuadraticEquationQuestionSet);
+renderComponent('test-question-panel', TestQuestionPanel);
