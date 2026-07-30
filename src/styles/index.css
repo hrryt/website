@@ -1,6 +1,5 @@
 @import 'kern-typ/kern.css';
+
 @import '98.css';
 
-.window {
-  max-width: 800px;
-}
+@import './main.css'

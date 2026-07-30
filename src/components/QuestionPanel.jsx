@@ -77,7 +77,7 @@ export default function QuestionPanel({ data }) {
           </fieldset>
         </form>
         <br />
-        <div className="field-border">
+        <div className="field-border kern">
           {questions}
         </div>
       </div>
