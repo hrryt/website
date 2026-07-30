@@ -1,24 +1,10 @@
 body {
-  font-size: 18px;
-}
-
-.title-bar,
-.window,
-button,
-input,
-label,
-legend,
-li[role=tab],
-option,
-select,
-table,
-textarea,
-ul.tree-view {
-  -webkit-font-smoothing: none;
-  font-family: "Pixelated MS Sans Serif", Arial;
-  font-size: 16px;
+  transform: scale(2);
+  transform-origin: 0 0;
+  width: 50vw;
+  margin: 0;
 }
 
 .window {
-  max-width: 800px;
+  max-width: 400px;
 }
