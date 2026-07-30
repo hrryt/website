@@ -2,9 +2,18 @@ import * as React from 'react';
 import QuestionList from './QuestionList.jsx';
 import { getRandomInt, getRandomNumber } from '../scripts/utils.js';
 
+import MultipleSelection from './MultipleSelection';
+
 import AddingFractionsQuestion from './questions/AddingFractionsQuestion.jsx';
 import QuadraticEquationQuestion from './questions/QuadraticEquationQuestion.jsx';
 import Window from './Window.jsx';
+
+function chooseInputComponent(type) {
+  switch (type) {
+    case 'multiple-selection':
+      return MultipleSelection;
+  }
+}
 
 function chooseQuestionComponent(type) {
   switch (type) {
@@ -51,27 +60,33 @@ export default function QuestionWindow({ data }) {
     return randomQuestionList;
   });
 
+  const fields = data.inputs.map(input => {
+    const { type: type, ...props } = input;
+    const InputComponent = chooseInputComponent(type);
+    return <InputComponent {...props} />;
+  });
+
   const formRef = React.useRef();
-  function submitForm() { formRef.current.submit(); }
+  function submitForm() { e.preventDefault(); formRef.current.submit(); }
   function handleSubmit(e) { e.preventDefault(); }
 
   return (
     <Window title="Questions">
       <form ref={formRef} onChange={submitForm} onSubmit={handleSubmit}>
-          <fieldset>
-            <legend>Options</legend>
-            <button onClick={revealAnswers}>
-              {showAnswers ? "Hide" : "Show"} Answers
-            </button>
-            <button onClick={triggerRefresh}>
-              Refresh Questions
-            </button>
-          </fieldset>
-        </form>
-        <br />
-        <div className="field-border question-field kern">
-          {questions}
-        </div>
+        {fields}
+        <fieldset>
+          <legend>Options</legend>
+          <button onClick={revealAnswers}>
+            {showAnswers ? "Hide" : "Show"} Answers
+          </button>
+          <button onClick={triggerRefresh}>
+            Refresh Questions
+          </button>
+        </fieldset>
+      </form>
+      <div className="field-border question-field kern">
+        {questions}
+      </div>
     </Window>
   );
 }

@@ -1,15 +1,18 @@
 import * as React from 'react';
 
-export default function MultipleSelection({ legend, values, labels = values, defaults = values.map(() => true) }) {
+export default function MultipleSelection({ id, legend, values, labels = values, defaults = values.map(() => true) }) {
   return (
-    <fieldset ref={ref}>
+    <fieldset key={id}>
       <legend>{legend}</legend>
-      {values.map((value, i) => (
-        <div className="field-row">
-          <input type="checkbox" name={value} defaultChecked={defaults[i]}></input>
-          <label for={value}>{labels[i]}</label>
-        </div>
-      ))}
+      {values.map((value, i) => {
+        const name = id + value;
+        return (
+          <div key={value} className="field-row">
+            <input type="checkbox" id={name} name={name} defaultChecked={defaults[i]} />
+            <label htmlFor={name}>{labels[i]}</label>
+          </div>
+        );
+      })}
     </fieldset>
   );
 }

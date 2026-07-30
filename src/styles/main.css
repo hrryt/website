@@ -2,6 +2,10 @@ body {
   background-color: #008080;
 }
 
+fieldset {
+  margin-bottom: 7px;
+}
+
 .window {
   width: min-content;
 }
