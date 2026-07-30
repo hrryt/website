@@ -1,4 +1,4 @@
-export const questionPanel = {
+export const questionWindow = {
   inputs: [{
     id: 'a',
     legend: 'Quadratic Equations: a',

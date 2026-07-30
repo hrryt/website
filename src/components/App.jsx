@@ -1,6 +1,6 @@
 import * as React from 'react';
-import TestQuestionPanel from './TestQuestionPanel.jsx';
+import TestQuestionWindow from './TestQuestionWindow.jsx';
 
 export default function App() {
-  return <TestQuestionPanel />;
+  return <TestQuestionWindow />;
 }

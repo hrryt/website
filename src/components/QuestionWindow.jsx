@@ -4,6 +4,7 @@ import { getRandomInt, getRandomNumber } from '../scripts/utils.js';
 
 import AddingFractionsQuestion from './questions/AddingFractionsQuestion.jsx';
 import QuadraticEquationQuestion from './questions/QuadraticEquationQuestion.jsx';
+import Window from './Window.jsx';
 
 function chooseQuestionComponent(type) {
   switch (type) {
@@ -34,7 +35,7 @@ function shuffleArray(arr, n, seed) {
   return Array.from({ length: n }).map(() => arr[getRandomInt(0, max, ++seed)]);
 }
 
-export default function QuestionPanel({ data }) {
+export default function QuestionWindow({ data }) {
   const [showAnswers, setShowAnswers] = React.useState(false);
   const [seed       , setSeed       ] = React.useState(Math.random());
 
@@ -55,17 +56,8 @@ export default function QuestionPanel({ data }) {
   function handleSubmit(e) { e.preventDefault(); }
 
   return (
-    <div className="window">
-      <div className="title-bar">
-        <div className="title-bar-text">Questions</div>
-        <div className="title-bar-controls">
-          <button aria-label="Minimize" />
-          <button aria-label="Maximize" />
-          <button aria-label="Close" />
-        </div>
-      </div>
-      <div className="window-body">
-        <form ref={formRef} onChange={submitForm} onSubmit={handleSubmit}>
+    <Window title="Questions">
+      <form ref={formRef} onChange={submitForm} onSubmit={handleSubmit}>
           <fieldset>
             <legend>Options</legend>
             <button onClick={revealAnswers}>
@@ -80,7 +72,6 @@ export default function QuestionPanel({ data }) {
         <div className="field-border kern">
           {questions}
         </div>
-      </div>
-    </div>
+    </Window>
   );
 }
