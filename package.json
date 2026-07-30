@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "98.css": "^0.1.21",
     "kern-typ": "^0.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

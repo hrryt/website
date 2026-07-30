@@ -1,7 +1,7 @@
 import * as React from 'react';
 import QuestionPanel from './QuestionPanel.jsx';
-import { questionLists } from '../data/test-question-panel.js';
+import { questionPanel } from '../data/test-question-panel.js';
 
 export default function TestQuestionPanel() {
-  return <QuestionPanel questionLists={questionLists} />;
+  return <QuestionPanel data={questionPanel} />;
 }

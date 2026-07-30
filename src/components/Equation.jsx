@@ -2,11 +2,11 @@ import * as React from 'react';
 import { render } from 'kern-typ';
 
 export default function Equation({ equation, displayMode = false }) {
-  const elementRef = React.useRef();
+  const ref = React.useRef(null);
 
   React.useEffect(() => {
-    render(equation, elementRef.current, { displayMode: displayMode });
+    render(equation, ref.current, { displayMode: displayMode });
   }, [equation]);
 
-  return <div className="Equation" ref={elementRef} />;
+  return <div ref={ref} />;
 }

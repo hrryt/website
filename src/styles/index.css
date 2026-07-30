@@ -1,21 +1,6 @@
 @import 'kern-typ/kern.css';
+@import '98.css';
 
-html {
-  display: table;
-  margin: 0 auto;
-  background-color: #008080;
-}
-
-body {
-  display: table-cell;
-  vertical-align: middle;
-  width: 100vw;
+.window {
   max-width: 800px;
-  background-color: #202020;
-  color: #c5c5c5;
-  padding: 0 1em;
-}
-
-.QuestionSet {
-  display: flex;
 }

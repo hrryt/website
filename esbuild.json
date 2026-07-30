@@ -4,5 +4,9 @@
     { "out": "css/index", "in": "src/styles/index.css" }
   ],
   "bundle": true,
-  "outdir": "www"
+  "outdir": "www",
+  "loader": {
+    ".woff": "file",
+    ".woff2": "file"
+  }
 }

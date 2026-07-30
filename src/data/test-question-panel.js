@@ -1,17 +1,19 @@
-export const questionLists = [{
-  id: 0,
-  n: 10,
-  questions: [{
-    type: 'quadratic-equation',
-    parameters: { factorise: false }
-  }, {
-    type: 'quadratic-equation',
-    parameters: { a: 1, factorise: true }
+export const questionPanel = {
+  inputs: [{
+    id: 'a',
+    legend: 'Quadratic Equations: a',
+    type: 'multiple-selection',
+    values: [1, 2, 3],
+  }],
+  questionLists: [{
+    id: 0,
+    n: 10,
+    questions: [{
+      type: 'quadratic-equation',
+      controlledParameters: { a: 'a' },
+      lockedParameters: { factorise: false },
+    }, {
+      type: 'adding-fractions',
+    }]
   }]
-}, {
-  id: 1,
-  n: 5,
-  questions: [{
-    type: 'adding-fractions',
-  }]
-}]
+}

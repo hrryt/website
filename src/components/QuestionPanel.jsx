@@ -34,7 +34,7 @@ function shuffleArray(arr, n, seed) {
   return Array.from({ length: n }).map(() => arr[getRandomInt(0, max, ++seed)]);
 }
 
-export default function QuestionPanel({ questionLists }) {
+export default function QuestionPanel({ data }) {
   const [showAnswers, setShowAnswers] = React.useState(false);
   const [seed       , setSeed       ] = React.useState(Math.random());
 
@@ -42,7 +42,7 @@ export default function QuestionPanel({ questionLists }) {
   function triggerRefresh() { setSeed(getRandomNumber(seed)); }
 
   let current_seed = seed;
-  const questions = questionLists.map(questionList => {
+  const questions = data.questionLists.map(questionList => {
     const { id: id, n: n, questions: unique_questions } = questionList;
     const questions = shuffleArray(unique_questions, n, current_seed);
     const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed);
@@ -50,18 +50,36 @@ export default function QuestionPanel({ questionLists }) {
     return randomQuestionList;
   });
 
+  const formRef = React.useRef();
+  function submitForm() { formRef.current.submit(); }
+  function handleSubmit(e) { e.preventDefault(); }
+
   return (
-    <div className="QuestionPanel">
-      <div className="ButtonPanel">
-        <button className="RevealButton" onClick={revealAnswers}>
-          {showAnswers ? "Hide" : "Show"} Answers
-        </button>
-        <button className="RefreshButton" onClick={triggerRefresh}>
-          Refresh Questions
-        </button>
+    <div className="window">
+      <div className="title-bar">
+        <div className="title-bar-text">Questions</div>
+        <div className="title-bar-controls">
+          <button aria-label="Minimize" />
+          <button aria-label="Maximize" />
+          <button aria-label="Close" />
+        </div>
       </div>
-      <div className="QuestionSet">
-        {questions}
+      <div className="window-body">
+        <form ref={formRef} onChange={submitForm} onSubmit={handleSubmit}>
+          <fieldset>
+            <legend>Options</legend>
+            <button onClick={revealAnswers}>
+              {showAnswers ? "Hide" : "Show"} Answers
+            </button>
+            <button onClick={triggerRefresh}>
+              Refresh Questions
+            </button>
+          </fieldset>
+        </form>
+        <br />
+        <div className="field-border">
+          {questions}
+        </div>
       </div>
     </div>
   );

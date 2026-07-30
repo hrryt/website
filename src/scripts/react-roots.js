@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 
-import TestQuestionPanel from '../components/TestQuestionPanel.jsx';
+import App from '../components/App.jsx';
 
 function renderComponent(id, component) {
   node = document.getElementById(id);
@@ -9,4 +9,4 @@ function renderComponent(id, component) {
   root.render(createElement(component));
 }
 
-renderComponent('test-question-panel', TestQuestionPanel);
+renderComponent('app', App);
