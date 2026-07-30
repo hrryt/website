@@ -1,10 +1,19 @@
 body {
-  transform: scale(2);
-  transform-origin: 0 0;
-  width: 50vw;
-  margin: 0;
+  background-color: #008080;
 }
 
 .window {
-  max-width: 400px;
+  width: min-content;
+}
+
+.question-list {
+  margin-right: 15px;
+}
+
+.field-border {
+  font-size: 1.25rem;
+}
+
+.question-field {
+  display: flex;
 }

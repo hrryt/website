@@ -18,7 +18,7 @@ function chooseQuestionComponent(type) {
 function renderQuestion(seed, showAnswer) {
   return (question, i) => {
     const QuestionComponent = chooseQuestionComponent(question.type);
-    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={question.parameters || {}} />;
+    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={question.lockedParameters || {}} />;
   };
 }
 
@@ -69,7 +69,7 @@ export default function QuestionWindow({ data }) {
           </fieldset>
         </form>
         <br />
-        <div className="field-border kern">
+        <div className="field-border question-field kern">
           {questions}
         </div>
     </Window>

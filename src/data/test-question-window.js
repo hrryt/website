@@ -11,9 +11,19 @@ export const questionWindow = {
     questions: [{
       type: 'quadratic-equation',
       controlledParameters: { a: 'a' },
-      lockedParameters: { factorise: false },
-    }, {
+    }]
+  }, {
+    id: 1,
+    n: 5,
+    questions: [{
       type: 'adding-fractions',
     }]
+  }, {
+    id: 2,
+    n: 5,
+    questions: [{
+      type: 'quadratic-equation',
+      lockedParameters: { a: 1, factorise: false },
+     }]
   }]
 }
