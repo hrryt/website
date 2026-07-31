@@ -87,7 +87,7 @@ export default function QuestionWindow({ data }) {
   const fields = data.variables.map(input => {
     const { type: type, ...props } = input;
     const InputComponent = chooseInputComponent(type);
-    return <InputComponent variable={variables[input.id]} setVariable={setVariable(input.id)} {...props} />;
+    return <InputComponent key={input.id} variable={variables[input.id]} setVariable={setVariable(input.id)} {...props} />;
   });
 
   return (
