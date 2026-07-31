@@ -1,6 +1,6 @@
 import * as React from 'react';
 import QuestionList from './QuestionList.jsx';
-import { getRandomInt, getRandomNumber } from '../scripts/utils.js';
+import { getRandomInt, getRandomNumber, getRandomChoice } from '../scripts/utils.js';
 
 import MultipleSelection from './MultipleSelection';
 
@@ -24,24 +24,38 @@ function chooseQuestionComponent(type) {
   }
 }
 
-function renderQuestion(seed, showAnswer) {
+function getFormValue(id, formData) {
+  // TODO: Implement
+  return ["a=1"];
+}
+
+function resolveParameters(question, formData) {
+  const parameters = question.lockedParameters || { };
+  const controlledParameters = question.controlledParameters || { };
+  Object.keys(controlledParameters).forEach((key) => {
+    parameters[key] = getFormValue(controlledParameters[key], formData);
+  })
+  return parameters;
+}
+
+function renderQuestion(seed, showAnswer, formData) {
   return (question, i) => {
     const QuestionComponent = chooseQuestionComponent(question.type);
-    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={question.lockedParameters || { }} />;
+    const parameters = resolveParameters(question, formData);
+    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={parameters} />;
   };
 }
 
-function getQuestionList(id, questions, showAnswers, seed) {
+function getQuestionList(id, questions, showAnswers, seed, formData) {
   return (
     <QuestionList key={id}>
-      {questions.map(renderQuestion(seed, showAnswers))}
+      {questions.map(renderQuestion(seed, showAnswers, formData))}
     </QuestionList>
   );
 }
 
 function shuffleArray(arr, n, seed) {
-  const max = arr.length - 1;
-  return Array.from({ length: n }).map(() => arr[getRandomInt(0, max, ++seed)]);
+  return Array.from({ length: n }).map(() => getRandomChoice(arr, ++seed));
 }
 
 export default function QuestionWindow({ data }) {
@@ -56,7 +70,7 @@ export default function QuestionWindow({ data }) {
   const questions = data.questionLists.map(questionList => {
     const { id: id, n: n, questions: unique_questions } = questionList;
     const questions = shuffleArray(unique_questions, n, current_seed);
-    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed);
+    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, formData);
     current_seed += n;
     return randomQuestionList;
   });
@@ -71,8 +85,6 @@ export default function QuestionWindow({ data }) {
     const newFormData = new FormData(e.currentTarget);
     setFormData(Object.fromEntries(newFormData.entries()));
   }
-
-  console.log(formData);
 
   return (
     <Window title="Questions">

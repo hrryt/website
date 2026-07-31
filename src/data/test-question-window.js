@@ -1,16 +1,16 @@
 export const questionWindow = {
   inputs: [{
-    id: 'a',
+    id: 'aPlurality',
     legend: 'Quadratic Equations: a',
     type: 'multiple-selection',
-    values: [1, 2, 3],
+    values: ["a=1", "a>1"],
   }],
   questionLists: [{
     id: 0,
     n: 10,
     questions: [{
       type: 'quadratic-equation',
-      controlledParameters: { a: 'a' },
+      controlledParameters: { aPlurality: 'aPlurality' },
     }]
   }, {
     id: 1,
@@ -23,7 +23,7 @@ export const questionWindow = {
     n: 5,
     questions: [{
       type: 'quadratic-equation',
-      lockedParameters: { a: 1, factorise: false },
+      lockedParameters: { aPlurality: ["a=1"], factorise: false },
      }]
   }]
 }

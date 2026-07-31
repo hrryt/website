@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Question from '../Question.jsx';
-import { getRandomInt, getRandomBoolean, formatNumber } from '../../scripts/utils.js';
+import { getRandomInt, getRandomBoolean, getRandomChoice, formatNumber } from '../../scripts/utils.js';
 
 function formatQuadraticExpression(a, b, c) {
   const fa = formatNumber(a, showPlus=false, showOne=false, showZero=false, suffix='x^2');
@@ -47,9 +47,14 @@ function getRandomRoots(seed) {
 
 export default function QuadraticEquationQuestion({ seed, showAnswer, parameters }) {
   const {
-    a: a = getRandomInt(1, 3, seed),
+    aPlurality: aPlurality = ["a=1", "a>1"],
     factorise: factorise = getRandomBoolean(seed + .1),
   } = parameters;
+
+  const aChoices = Array();
+  aPlurality.includes("a=1") && aChoices.push(1);
+  aPlurality.includes("a>1") && aChoices.push(2, 3);
+  const a = getRandomChoice(aChoices, seed);
 
   const [root1, root2] = getRandomRoots(seed + .2);
 
