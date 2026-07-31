@@ -24,32 +24,27 @@ function chooseQuestionComponent(type) {
   }
 }
 
-function getFormValue(id, formData) {
-  // TODO: Implement
-  return ["a=1"];
-}
-
-function resolveParameters(question, formData) {
+function resolveParameters(question, variableParameters) {
   const parameters = question.lockedParameters || { };
   const controlledParameters = question.controlledParameters || { };
   Object.keys(controlledParameters).forEach((key) => {
-    parameters[key] = getFormValue(controlledParameters[key], formData);
+    parameters[key] = variableParameters[controlledParameters[key]];
   })
   return parameters;
 }
 
-function renderQuestion(seed, showAnswer, formData) {
+function renderQuestion(seed, showAnswer, variableParameters) {
   return (question, i) => {
     const QuestionComponent = chooseQuestionComponent(question.type);
-    const parameters = resolveParameters(question, formData);
+    const parameters = resolveParameters(question, variableParameters);
     return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={parameters} />;
   };
 }
 
-function getQuestionList(id, questions, showAnswers, seed, formData) {
+function getQuestionList(id, questions, showAnswers, seed, variableParameters) {
   return (
     <QuestionList key={id}>
-      {questions.map(renderQuestion(seed, showAnswers, formData))}
+      {questions.map(renderQuestion(seed, showAnswers, variableParameters))}
     </QuestionList>
   );
 }
@@ -59,9 +54,23 @@ function shuffleArray(arr, n, seed) {
 }
 
 export default function QuestionWindow({ data }) {
-  const [showAnswers, setShowAnswers] = React.useState(false);
-  const [seed       , setSeed       ] = React.useState(Math.random());
-  const [formData   , setFormData   ] = React.useState({ });
+
+  defaultParameters = Object.fromEntries(
+    data.inputs.map(input => [input.id, input.default ?? input.values])
+  );
+
+  const [showAnswers        , setShowAnswers        ] = React.useState(false);
+  const [seed               , setSeed               ] = React.useState(Math.random());
+  const [variableParameters , setVariableParameters ] = React.useState(defaultParameters);
+
+  function setParameter(id) {
+    return (value) => {
+      setVariableParameters({
+        ...variableParameters,
+        [id]: value
+      });
+    }
+  }
 
   function revealAnswers() { setShowAnswers(!showAnswers); }
   function triggerRefresh() { setSeed(getRandomNumber(seed)); }
@@ -70,7 +79,7 @@ export default function QuestionWindow({ data }) {
   const questions = data.questionLists.map(questionList => {
     const { id: id, n: n, questions: unique_questions } = questionList;
     const questions = shuffleArray(unique_questions, n, current_seed);
-    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, formData);
+    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, variableParameters);
     current_seed += n;
     return randomQuestionList;
   });
@@ -78,19 +87,14 @@ export default function QuestionWindow({ data }) {
   const fields = data.inputs.map(input => {
     const { type: type, ...props } = input;
     const InputComponent = chooseInputComponent(type);
-    return <InputComponent {...props} />;
+    return <InputComponent parameter={variableParameters[input.id]} setParameter={setParameter(input.id)} {...props} />;
   });
 
-  function updateFormData(e) {
-    const newFormData = new FormData(e.currentTarget);
-    setFormData(Object.fromEntries(newFormData.entries()));
-  }
+  console.log(variableParameters);
 
   return (
     <Window title="Questions">
-      <form onChange={updateFormData}>
-        {fields}
-      </form>
+      {fields}
       <fieldset>
         <legend>Options</legend>
         <button onClick={revealAnswers}>
