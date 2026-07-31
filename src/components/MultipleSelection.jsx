@@ -5,7 +5,7 @@ export default function MultipleSelection({ id, legend, values, labels = values,
     <fieldset key={id}>
       <legend>{legend}</legend>
       {values.map((value, i) => {
-        const name = id + value;
+        const name = `${id}:${value}`;
         return (
           <div key={value} className="field-row">
             <input type="checkbox" id={name} name={name} defaultChecked={defaults[i]} />

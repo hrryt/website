@@ -27,7 +27,7 @@ function chooseQuestionComponent(type) {
 function renderQuestion(seed, showAnswer) {
   return (question, i) => {
     const QuestionComponent = chooseQuestionComponent(question.type);
-    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={question.lockedParameters || {}} />;
+    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={question.lockedParameters || { }} />;
   };
 }
 
@@ -47,6 +47,7 @@ function shuffleArray(arr, n, seed) {
 export default function QuestionWindow({ data }) {
   const [showAnswers, setShowAnswers] = React.useState(false);
   const [seed       , setSeed       ] = React.useState(Math.random());
+  const [formData   , setFormData   ] = React.useState({ });
 
   function revealAnswers() { setShowAnswers(!showAnswers); }
   function triggerRefresh() { setSeed(getRandomNumber(seed)); }
@@ -66,24 +67,27 @@ export default function QuestionWindow({ data }) {
     return <InputComponent {...props} />;
   });
 
-  const formRef = React.useRef();
-  function submitForm() { e.preventDefault(); formRef.current.submit(); }
-  function handleSubmit(e) { e.preventDefault(); }
+  function updateFormData(e) {
+    const newFormData = new FormData(e.currentTarget);
+    setFormData(Object.fromEntries(newFormData.entries()));
+  }
+
+  console.log(formData);
 
   return (
     <Window title="Questions">
-      <form ref={formRef} onChange={submitForm} onSubmit={handleSubmit}>
+      <form onChange={updateFormData}>
         {fields}
-        <fieldset>
-          <legend>Options</legend>
-          <button onClick={revealAnswers}>
-            {showAnswers ? "Hide" : "Show"} Answers
-          </button>
-          <button onClick={triggerRefresh}>
-            Refresh Questions
-          </button>
-        </fieldset>
       </form>
+      <fieldset>
+        <legend>Options</legend>
+        <button onClick={revealAnswers}>
+          {showAnswers ? "Hide" : "Show"} Answers
+        </button>
+        <button onClick={triggerRefresh}>
+          Refresh Questions
+        </button>
+      </fieldset>
       <div className="field-border question-field kern">
         {questions}
       </div>
