@@ -101,7 +101,9 @@ export default function QuestionWindow({ data }) {
         </button>
       </fieldset>
       <div className="field-border question-field kern">
-        {questions}
+        <ol className="master-question-list">
+          {questions}
+        </ol>
       </div>
     </Window>
   );
