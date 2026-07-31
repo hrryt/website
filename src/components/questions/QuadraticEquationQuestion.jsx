@@ -45,16 +45,16 @@ function getRandomRoots(seed) {
   ].sort((a, b) => a - b);
 }
 
-export default function QuadraticEquationQuestion({ seed, showAnswer, parameters }) {
-  const {
-    aPlurality: aPlurality = ["a=1", "a>1"],
-    factorise: factorise = getRandomBoolean(seed + .1),
-  } = parameters;
-
+export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality, framing }) {
   const aChoices = Array();
   aPlurality.includes("a=1") && aChoices.push(1);
   aPlurality.includes("a>1") && aChoices.push(2, 3);
   const a = getRandomChoice(aChoices, seed);
+
+  const factoriseChoices = Array();
+  framing.includes("Solve") && factoriseChoices.push(false);
+  framing.includes("Factorise") && factoriseChoices.push(true);
+  const factorise = getRandomChoice(factoriseChoices, seed + .1);
 
   const [root1, root2] = getRandomRoots(seed + .2);
 

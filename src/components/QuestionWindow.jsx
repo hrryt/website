@@ -24,27 +24,27 @@ function chooseQuestionComponent(type) {
   }
 }
 
-function resolveParameters(question, variableParameters) {
-  const parameters = question.lockedParameters || { };
-  const controlledParameters = question.controlledParameters || { };
-  Object.keys(controlledParameters).forEach((key) => {
-    parameters[key] = variableParameters[controlledParameters[key]];
+function resolveParameters(question, variables) {
+  const parameters = question.constants || { };
+  const variableKeys = question.variables || { };
+  Object.keys(variableKeys).forEach((key) => {
+    parameters[key] = variables[variableKeys[key]];
   })
   return parameters;
 }
 
-function renderQuestion(seed, showAnswer, variableParameters) {
+function renderQuestion(seed, showAnswer, variables) {
   return (question, i) => {
     const QuestionComponent = chooseQuestionComponent(question.type);
-    const parameters = resolveParameters(question, variableParameters);
-    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} parameters={parameters} />;
+    const parameters = resolveParameters(question, variables);
+    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} {...parameters} />;
   };
 }
 
-function getQuestionList(id, questions, showAnswers, seed, variableParameters) {
+function getQuestionList(id, questions, showAnswers, seed, variables) {
   return (
     <QuestionList key={id}>
-      {questions.map(renderQuestion(seed, showAnswers, variableParameters))}
+      {questions.map(renderQuestion(seed, showAnswers, variables))}
     </QuestionList>
   );
 }
@@ -55,18 +55,18 @@ function shuffleArray(arr, n, seed) {
 
 export default function QuestionWindow({ data }) {
 
-  defaultParameters = Object.fromEntries(
-    data.inputs.map(input => [input.id, input.default ?? input.values])
+  defaultVariables = Object.fromEntries(
+    data.variables.map(input => [input.id, input.default ?? input.values])
   );
 
-  const [showAnswers        , setShowAnswers        ] = React.useState(false);
-  const [seed               , setSeed               ] = React.useState(Math.random());
-  const [variableParameters , setVariableParameters ] = React.useState(defaultParameters);
+  const [showAnswers, setShowAnswers] = React.useState(false);
+  const [seed       , setSeed       ] = React.useState(Math.random());
+  const [variables  , setVariables  ] = React.useState(defaultVariables);
 
-  function setParameter(id) {
+  function setVariable(id) {
     return (value) => {
-      setVariableParameters({
-        ...variableParameters,
+      setVariables({
+        ...variables,
         [id]: value
       });
     }
@@ -79,18 +79,16 @@ export default function QuestionWindow({ data }) {
   const questions = data.questionLists.map(questionList => {
     const { id: id, n: n, questions: unique_questions } = questionList;
     const questions = shuffleArray(unique_questions, n, current_seed);
-    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, variableParameters);
+    const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, variables);
     current_seed += n;
     return randomQuestionList;
   });
 
-  const fields = data.inputs.map(input => {
+  const fields = data.variables.map(input => {
     const { type: type, ...props } = input;
     const InputComponent = chooseInputComponent(type);
-    return <InputComponent parameter={variableParameters[input.id]} setParameter={setParameter(input.id)} {...props} />;
+    return <InputComponent variable={variables[input.id]} setVariable={setVariable(input.id)} {...props} />;
   });
-
-  console.log(variableParameters);
 
   return (
     <Window title="Questions">

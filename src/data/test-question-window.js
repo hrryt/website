@@ -1,7 +1,12 @@
 export const questionWindow = {
-  inputs: [{
+  variables: [{
+    id: 'framing',
+    legend: 'Quadratic Equations: Framing',
+    type: 'multiple-selection',
+    values: ["Solve", "Factorise"],
+  }, {
     id: 'aPlurality',
-    legend: 'Quadratic Equations: a',
+    legend: 'Quadratic Equations: Coefficient a',
     type: 'multiple-selection',
     values: ["a=1", "a>1"],
   }],
@@ -10,7 +15,7 @@ export const questionWindow = {
     n: 10,
     questions: [{
       type: 'quadratic-equation',
-      controlledParameters: { aPlurality: 'aPlurality' },
+      variables: { aPlurality: 'aPlurality', framing: 'framing' },
     }]
   }, {
     id: 1,
@@ -18,12 +23,5 @@ export const questionWindow = {
     questions: [{
       type: 'adding-fractions',
     }]
-  }, {
-    id: 2,
-    n: 5,
-    questions: [{
-      type: 'quadratic-equation',
-      lockedParameters: { aPlurality: ["a=1"], factorise: false },
-     }]
   }]
 }

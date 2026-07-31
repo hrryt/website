@@ -26,7 +26,7 @@ function getRandomFractions(seed) {
   return [num1, denom1, num2, denom2];
 }
 
-export default function AddingFractionsQuestion({ seed, showAnswer, parameters }) {
+export default function AddingFractionsQuestion({ seed, showAnswer }) {
   const [num1, denom1, num2, denom2] = getRandomFractions(seed);
 
   const question = formatFraction(num1, denom1) + ' + ' + formatFraction(num2, denom2);
