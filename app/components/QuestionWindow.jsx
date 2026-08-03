@@ -55,7 +55,7 @@ function shuffleArray(arr, n, seed) {
 
 export default function QuestionWindow({ data }) {
 
-  defaultVariables = Object.fromEntries(
+  const defaultVariables = Object.fromEntries(
     data.variables.map(input => [input.id, input.default ?? input.values])
   );
 

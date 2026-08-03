@@ -1,5 +1,21 @@
 body {
   background-color: #008080;
+  margin: 0;
+}
+
+nav {
+  width: 100vw;
+  border-bottom: 2px solid black;
+  background-color: #C0C0C0;
+  margin-bottom: 10px;
+}
+.nav-element {
+  padding: 3px 8px;
+  width: max-content;
+  min-width: 100px;
+  font-weight: bold;
+  display: inline-block;
+  margin: 5px;
 }
 
 .window {

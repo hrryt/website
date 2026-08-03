@@ -19,11 +19,12 @@ export function getHCF(a, b) {
   return b == 0 ? a : getHCF(b, a % b);
 }
 
-export function formatNumber(x, showPlus, showOne, showZero, suffix='') {
-  if (!showZero && x == 0) { return ''; }
-  plus = showPlus ? '+' : '';
-  sign = x < 0 ? '-' : plus;
+export function formatNumber(x, parameters = {showPlus: false, showOne: true, showZero: true, suffix: ''}) {
+  if (!parameters.showZero && x == 0) { return ''; }
+  const plus = parameters.showPlus ? '+' : '';
+  const sign = x < 0 ? '-' : plus;
   x = Math.abs(x);
-  showOne || x == 1 && (x = '');
-  return sign + x + suffix;
+  parameters.showOne || x == 1 && (x = '');
+  parameters.suffix || (parameters.suffix = '') // if suffix undefined
+  return sign + x + parameters.suffix;
 }

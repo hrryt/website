@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export default function MultipleSelection({ variable, setVariable, id, legend, values, labels = values }) {
-  checked = values.map(value => variable.includes(value));
+  const checked = values.map(value => variable.includes(value));
 
   function updateVariable(e, index) {
     const newChecked = checked.map((value, i) => i === index ? e.target.checked : value);

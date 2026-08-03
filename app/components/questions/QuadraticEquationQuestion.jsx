@@ -3,23 +3,23 @@ import Question from '../Question.jsx';
 import { getRandomInt, getRandomBoolean, getRandomChoice, formatNumber } from '../../scripts/utils.js';
 
 function formatQuadraticExpression(a, b, c) {
-  const fa = formatNumber(a, showPlus=false, showOne=false, showZero=false, suffix='x^2');
-  const fb = formatNumber(b, showPlus=true,  showOne=false, showZero=false, suffix='x');
-  const fc = formatNumber(c, showPlus=true,  showOne=true,  showZero=false);
+  const fa = formatNumber(a, {showPlus: false, showOne: false, showZero: false, suffix: 'x^2'});
+  const fb = formatNumber(b, {showPlus: true, showOne: false, showZero: false, suffix: 'x'});
+  const fc = formatNumber(c, {showPlus: true, showOne: true, showZero: false});
   return `${fa} ${fb} ${fc}`;
 }
 
 function formatRoots(root1, root2) {
-  const froot2 = formatNumber(root2, showPlus=false, showOne=true, showZero=true);
+  const froot2 = formatNumber(root2, {showPlus: false, showOne: true, showZero: true});
   if (root1 == root2) { return `x = ${froot2}`; }
   if (Math.abs(root1) == root2) { return `x = plus.minus ${root2}`; }
-  const froot1 = formatNumber(root1, showPlus=false, showOne=true, showZero=true);
+  const froot1 = formatNumber(root1, {showPlus: false, showOne: true, showZero: true});
   return `x = ${froot1} thick "or" thick x = ${froot2}`;
 }
 
 function formatFactor(root) {
   if (root == 0) { return "x"; }
-  const froot = formatNumber(root, showPlus=true, showOne=true, showZero=false);
+  const froot = formatNumber(root, {showPlus: true, showOne: true, showZero: false});
   return `(x${froot})`;
 }
 
@@ -30,7 +30,7 @@ function sortFactors(root1, root2) {
 }
 
 function formatFactors(root1, root2, a) {
-  const fa = formatNumber(a, showPlus=false, showOne=false, showZero=true);
+  const fa = formatNumber(a, {showPlus: false, showOne: false, showZero: false});
   [root1, root2] = [root1, root2].sort(sortFactors);
   const froot2 = formatFactor(root2);
   if (root1 == root2) { return `${fa}${froot2}^2`; }
@@ -62,7 +62,7 @@ export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality
   const c = a * root1 * root2;
 
   const quadratic = formatQuadraticExpression(a, b, c);
-  question = factorise ? `"Factorise" thick ${quadratic}` : `${quadratic} = 0`;
+  const question = factorise ? `"Factorise" thick ${quadratic}` : `${quadratic} = 0`;
   const answer = factorise ? formatFactors(root1, root2, a) : formatRoots(root1, root2);
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />;

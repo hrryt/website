@@ -1,6 +1,8 @@
-node_modules
+.DS_Store
+.env
+/node_modules/
 package-lock.json
-www/js
-www/css
-www/*.woff
-www/*.woff2
+
+# React Router
+/.react-router/
+/build/
