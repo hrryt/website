@@ -1,0 +1,66 @@
+body {
+  background-color: #008080;
+  margin: 0;
+}
+
+nav {
+  max-width: 100vw !important;
+}
+
+button.nav-element.active {
+  font-weight: bold;
+}
+
+.window {
+  min-width: min-content;
+  max-width: max-content;
+}
+
+fieldset {
+  margin-bottom: 7px;
+}
+
+.field-border {
+  font-size: 1.25rem;
+  padding: 20px;
+}
+
+ol.master-question-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+ol.question-list {
+  list-style-type: lower-latin;
+}
+
+main {
+  padding: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+aside {
+  width: 200px;
+}
+
+button {
+  margin-right: 3px;
+}
+
+button.window-button {
+  margin-right: 0;
+}
+
+button.active {
+  box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a,
+    inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+}
+
+img.http-error {
+  max-width: 400px;
+}
