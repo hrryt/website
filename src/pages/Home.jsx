@@ -1,10 +1,13 @@
 import Window from '../components/Window.jsx';
+import Graph from '../components/Graph.jsx';
 
 export default function Home() {
   return (
     <main>
-      <aside></aside>
-      <Window title="Home">Hello World!</Window>
+      <Window title="Home">
+        <p>Hello World!</p>
+        <Graph procedure={p => p.draw_test()}/>
+      </Window>
     </main>
   );
 }

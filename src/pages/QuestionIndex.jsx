@@ -58,11 +58,11 @@ export default function QuestionIndex() {
 
   return (
     <main>
-      <aside>
+      <nav class="sidebar">
         <ul class="tree-view">
           {items}
         </ul>
-      </aside>
+      </nav>
       <Router>
         {routes}
       </Router>

@@ -5,14 +5,14 @@ export default function Header() {
 
 	return (
 		<header>
-			<nav class="window">
+			<nav class="window taskbar">
 			  <a href="/">
-          <button class={'nav-element' + (url == '/' ? ' active' : '')}>
+          <button class={'taskbar-element' + (url == '/' ? ' active' : '')}>
             Home
           </button>
         </a>
         <a href="/questions">
-          <button class={'nav-element' + (url.startsWith('/questions') ? ' active' : '')}>
+          <button class={'taskbar-element' + (url.startsWith('/questions') ? ' active' : '')}>
             Questions
           </button>
         </a>
