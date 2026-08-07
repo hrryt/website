@@ -1,0 +1,34 @@
+path,polygon,circle,ellipse,line,polyline {
+  stroke: #066;
+  stroke-width: 0.06;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  fill: transparent;
+}
+
+polygon {
+  fill: #0668;
+}
+
+path#grid {
+  stroke: black;
+  stroke-width: 0.01;
+}
+
+path#axes {
+  stroke: black;
+  stroke-width: 0.08;
+  stroke-linecap: butt;
+}
+
+path#arrowhead {
+  stroke: black;
+  fill: black;
+}
+
+text {
+  font-size: 0.02em;
+  stroke: white;
+  stroke-width: 0.02;
+  paint-order: stroke;
+}

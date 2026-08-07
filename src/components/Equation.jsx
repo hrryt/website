@@ -8,5 +8,5 @@ export default function Equation({ equation, displayMode = false }) {
     render(equation, ref.current, { displayMode: displayMode });
   }, [equation]);
 
-  return <div ref={ref} >{equation}</div>;
+  return <div ref={ref}>{equation}</div>;
 }
