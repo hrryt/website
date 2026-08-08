@@ -10,10 +10,13 @@ function formatQuadraticExpression(a, b, c) {
 
 function formatFraction(num, denom) {
   const hcf = getHCF(Math.abs(num), Math.abs(denom))
-  num = num / hcf
-  denom = denom / hcf
-  if (denom == 1) { return `${num}`; }
-  return `frac(${num}, ${denom})`
+  const prefix = num / denom > 0 ? "" : "-" 
+
+  num = Math.abs(num / hcf)
+  denom = Math.abs(denom / hcf)
+
+  if (denom == 1) { return `${prefix}${num}`; }
+  return `${prefix}frac(${num}, ${denom})`
 }
 
 function formatRoots(l, m, n, o) {

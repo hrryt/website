@@ -8,8 +8,10 @@
   - Add graphing questions
     - Find all roots of this quintic (or something) polynomial (repeated root knowledge)
     - Transformations of shapes and graphs (curves)
+    - Make text same size for all graph scalings.
 - Drop-down for finer controls
 - tricky parallel lines / internal angles etc questions
+- automate allQuestions using file exploration
 
 # Other stuff
 - minesweeper / youtube video.

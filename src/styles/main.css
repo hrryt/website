@@ -1,10 +1,22 @@
+:root {
+  --highlight: #008080;
+
+  --background: var(--highlight);
+
+  --graph-1: var(--highlight);
+  --graph-2: #43509E;
+  --graph-3: #DC267F;
+  --graph-4: #FE6100;
+  --graph-5: #FFB000;
+}
+
 body {
-  background-color: #008080;
+  background-color: var(--background);
   margin: 0;
 }
 
 nav.taskbar {
-  max-width: 100vw !important;
+  max-width: 100vw;
 }
 
 button.taskbar-element.active {
