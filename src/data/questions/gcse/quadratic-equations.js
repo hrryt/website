@@ -12,6 +12,7 @@ export const data = {
     legend: 'Coefficient a',
     type: MultipleSelection,
     values: ["a=1", "a>1"],
+    default: ["a=1"],
   }, {
     id: 'cSigns',
     legend: 'Coefficient c',
