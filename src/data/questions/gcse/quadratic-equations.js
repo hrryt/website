@@ -12,13 +12,18 @@ export const data = {
     legend: 'Coefficient a',
     type: MultipleSelection,
     values: ["a=1", "a>1"],
+  }, {
+    id: 'cSigns',
+    legend: 'Coefficient c',
+    type: MultipleSelection,
+    values: ["Positive", "Negative"]
   }],
   questionLists: [{
     id: 0,
     n: 10,
     questions: [{
       type: QuadraticEquationQuestion,
-      variables: { aPlurality: 'aPlurality', framing: 'framing' },
+      variables: { aPlurality: 'aPlurality', framing: 'framing', cSigns: 'cSigns' },
     }]
   }]
 }

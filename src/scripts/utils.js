@@ -16,10 +16,11 @@ export function getRandomNumber(seed) {
 }
 
 export function getHCF(a, b) {
+  if (a == 1 && b == 1) { return 1 }
   return b == 0 ? a : getHCF(b, a % b);
 }
 
-export function formatNumber(x, parameters = {showPlus: false, showOne: true, showZero: true, suffix: ''}) {
+export function formatCoefficient(x, parameters = {showPlus: false, showOne: true, showZero: true, suffix: ''}) {
   if (!parameters.showZero && x == 0) { return ''; }
   const plus = parameters.showPlus ? '+' : '';
   const sign = x < 0 ? '-' : plus;

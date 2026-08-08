@@ -1,40 +1,43 @@
 import Question from '../Question.jsx';
-import { getRandomInt, getRandomBoolean, getRandomChoice, formatNumber } from '../../scripts/utils.js';
+import { getRandomInt, getRandomBoolean, getRandomChoice, formatCoefficient, getHCF } from '../../scripts/utils.js';
 
 function formatQuadraticExpression(a, b, c) {
-  const fa = formatNumber(a, {showPlus: false, showOne: false, showZero: false, suffix: 'x^2'});
-  const fb = formatNumber(b, {showPlus: true, showOne: false, showZero: false, suffix: 'x'});
-  const fc = formatNumber(c, {showPlus: true, showOne: true, showZero: false});
+  const fa = formatCoefficient(a, { showPlus: false, showOne: false, showZero: false, suffix: 'x^2' });
+  const fb = formatCoefficient(b, { showPlus: true, showOne: false, showZero: false, suffix: 'x' });
+  const fc = formatCoefficient(c, { showPlus: true, showOne: true, showZero: false });
   return `${fa} ${fb} ${fc}`;
 }
 
-function formatRoots(root1, root2) {
-  const froot2 = formatNumber(root2, {showPlus: false, showOne: true, showZero: true});
-  if (root1 == root2) { return `x = ${froot2}`; }
-  if (Math.abs(root1) == root2) { return `x = plus.minus ${root2}`; }
-  const froot1 = formatNumber(root1, {showPlus: false, showOne: true, showZero: true});
-  return `x = ${froot1} "or" x = ${froot2}`;
+function formatFraction(num, denom) {
+  const hcf = getHCF(Math.abs(num), Math.abs(denom))
+  num = num / hcf
+  denom = denom / hcf
+  if (denom == 1) { return `${num}`; }
+  return `frac(${num}, ${denom})`
 }
 
-function formatFactor(root) {
-  if (root == 0) { return "x"; }
-  const froot = formatNumber(root, {showPlus: true, showOne: true, showZero: false});
-  return `(x${froot})`;
+function formatRoots(l, m, n, o) {
+  if (m / l == o / n) { return `x = ${formatFraction(-m, l)}`; }
+  if (-m / l == o / n) { return `x = plus.minus ${formatFraction(Math.abs(-m), l)}`; }
+  
+  return `x = ${formatFraction(-m, l)} "or" x = ${formatFraction(-o, n)}`;
 }
 
-function sortFactors(root1, root2) {
-  if (root1 > 0 && root2 < 0) { return -1; }
-  if (root1 < 0 && root2 > 0) { return +1; }
-  return Math.abs(root1) - Math.abs(root2);
+function formatFactor(x_coeff, const_coeff) {
+  if (const_coeff == 0) { return "x"; }
+  const fx_coeff = formatCoefficient(x_coeff, { showPlus: false, showOne: false, showZero: false, suffix: 'x'})
+  const fconst_coeff = formatCoefficient(const_coeff, { showPlus: true, showOne: true, showZero: false })
+  return `(${fx_coeff}${fconst_coeff})`;
 }
 
-function formatFactors(root1, root2, a) {
-  const fa = formatNumber(a, {showPlus: false, showOne: false, showZero: false});
-  [root1, root2] = [root1, root2].sort(sortFactors);
-  const froot2 = formatFactor(root2);
-  if (root1 == root2) { return `${fa}${froot2}^2`; }
-  const froot1 = formatFactor(root1);
-  return `${fa}${froot1}${froot2}`;
+function formatFactors(l, m, n, o) {
+  // const fa = formatCoefficient(a, {showPlus: false, showOne: false, showZero: false});
+  // [root1, root2] = [root1, root2].sort(sortFactors);
+  // const froot2 = formatFactor(root2);
+  // if (root1 == root2) { return `${fa}${froot2}^2`; }
+  // const froot1 = formatFactor(root1);
+  // return `${fa}${froot1}${froot2}`;
+  return `${formatFactor(l, m)}${formatFactor(n, o)}`
 }
 
 function getRandomRoots(seed) {
@@ -44,25 +47,44 @@ function getRandomRoots(seed) {
   ].sort((a, b) => a - b);
 }
 
-export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality, framing }) {
+export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality, framing, cSigns }) {
+  // (lx + m)(nx + o)
+
   const aChoices = Array();
   aPlurality.includes("a=1") && aChoices.push(1);
   aPlurality.includes("a>1") && aChoices.push(2, 3);
-  const a = getRandomChoice(aChoices, seed);
+  let l = getRandomChoice(aChoices, seed);
+  let n = getRandomChoice(aChoices, seed + .1);
 
   const factoriseChoices = Array();
   framing.includes("Solve") && factoriseChoices.push(false);
   framing.includes("Factorise") && factoriseChoices.push(true);
-  const factorise = getRandomChoice(factoriseChoices, seed + .1);
+  const factorise = getRandomChoice(factoriseChoices, seed + .2);
 
-  const [root1, root2] = getRandomRoots(seed + .2);
+  const cSignChoices = Array();
+  cSigns.includes("Positive") && cSignChoices.push(1)
+  cSigns.includes("Negative") && cSignChoices.push(-1)
 
-  const b = a * -(root1 + root2);
-  const c = a * root1 * root2;
+  const mSign = getRandomChoice([-1, 1], seed + .3)
+  const cSign = getRandomChoice(cSignChoices, seed + .4)
+
+  let m = getRandomInt(1, 9, seed + .5) * mSign
+  let o = getRandomInt(1, 9, seed + .6) * mSign * cSign
+
+  if (-m/l > -o/n) {
+    [l, m, n, o] = [n, o, l, m]
+  }
+
+  // lnx^2 + (lo + nm)x + mo
+  const a = l * n
+  const b = (l * o) + (n * m)
+  const c = m * o
 
   const quadratic = formatQuadraticExpression(a, b, c);
   const question = factorise ? `"Factorise" ${quadratic}` : `${quadratic} = 0`;
-  const answer = factorise ? formatFactors(root1, root2, a) : formatRoots(root1, root2);
+
+  const answer = factorise ? formatFactors(l, m, n, o) : formatRoots(l, m, n, o);
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />;
+
 }
