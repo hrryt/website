@@ -29,6 +29,6 @@ path#arrowhead {
 text {
   font-size: 0.02em;
   stroke: white;
-  stroke-width: 0.02;
+  stroke-width: 0.03;
   paint-order: stroke;
 }
