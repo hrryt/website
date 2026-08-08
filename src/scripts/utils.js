@@ -29,3 +29,9 @@ export function formatCoefficient(x, parameters = {showPlus: false, showOne: tru
   parameters.suffix || (parameters.suffix = '') // if suffix undefined
   return sign + x + parameters.suffix;
 }
+
+export function getSymmetricBounds(midX, viewBox) {
+  const [ minX, minY, width, height ] = viewBox;
+  const halfWidth = Math.max(midX - minX, minX + width - midX);
+  return [midX - halfWidth, midX + halfWidth];
+}
