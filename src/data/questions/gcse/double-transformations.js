@@ -6,7 +6,6 @@ export const data = {
     n: 3,
     questions: [{
       type: DoubleTransformationQuestion,
-      variables: {},
     }]
   }]
 }
