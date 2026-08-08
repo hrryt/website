@@ -2,7 +2,7 @@ import Label from './Label.jsx';
 
 function Grid({ viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
-  const d = `M ${minX} ${minY} h ${width} ${`m -${width} 1 h ${width}`.repeat(height)} v -${height} ${`m -1 ${height} v -${height}`.repeat(width)}`;
+  const d = `M ${minX},${minY} h ${width} ${`m -${width},1 h ${width}`.repeat(height)} v -${height} ${`m -1,${height} v -${height}`.repeat(width)}`;
   return <path id="grid" d={d} />;
 }
 
@@ -10,8 +10,8 @@ function Axes({ viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
   return (
     <g>
-      <path id="axes" d={`M ${minX} 0 h ${width-.1}`} marker-end="url(#arrow)"/>
-      <path id="axes" d={`M 0 ${minY} v ${height-.1}`} marker-end="url(#arrow)"/>
+      <path id="axes" d={`M ${minX},0 h ${width-.1}`} marker-end="url(#arrow)"/>
+      <path id="axes" d={`M 0,${minY} v ${height-.1}`} marker-end="url(#arrow)"/>
     </g>
   );
 }
@@ -39,7 +39,7 @@ function AxisTicks({ viewBox }) {
   )
 }
 
-export default function Graph({ children, width="500", height="500", viewBox=[-5, -5, 10, 10] }) {
+export default function Graph({ children, viewBox, width="500", height="500" }) {
   return (
     <svg
       width={width} height={height} viewBox={viewBox.join(' ')}
@@ -54,7 +54,7 @@ export default function Graph({ children, width="500", height="500", viewBox=[-5
           markerUnits="strokeWidth"
           orient="auto"
         >
-          <path d="M 0 0 L 4 2 L 0 4 z" id='arrowhead' />
+          <path d="M 0,0 L 4,2 L 0,4 z" id='arrowhead' />
         </marker>
       </defs>
       <Grid viewBox={viewBox} />
