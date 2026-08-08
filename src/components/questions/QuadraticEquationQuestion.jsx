@@ -31,12 +31,7 @@ function formatFactor(x_coeff, const_coeff) {
 }
 
 function formatFactors(l, m, n, o) {
-  // const fa = formatCoefficient(a, {showPlus: false, showOne: false, showZero: false});
-  // [root1, root2] = [root1, root2].sort(sortFactors);
-  // const froot2 = formatFactor(root2);
-  // if (root1 == root2) { return `${fa}${froot2}^2`; }
-  // const froot1 = formatFactor(root1);
-  // return `${fa}${froot1}${froot2}`;
+  if (l == n && m == o) { return `${formatFactor(l, m)}^2`}
   return `${formatFactor(l, m)}${formatFactor(n, o)}`
 }
 
@@ -81,7 +76,7 @@ export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality
   const c = m * o
 
   const quadratic = formatQuadraticExpression(a, b, c);
-  const question = factorise ? `"Factorise" ${quadratic}` : `${quadratic} = 0`;
+  const question = factorise ? `"Factorise" ${quadratic}` : `"Solve" ${quadratic} = 0`;
 
   const answer = factorise ? formatFactors(l, m, n, o) : formatRoots(l, m, n, o);
 

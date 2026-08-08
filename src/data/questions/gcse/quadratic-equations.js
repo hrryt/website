@@ -16,7 +16,7 @@ export const data = {
     id: 'cSigns',
     legend: 'Coefficient c',
     type: MultipleSelection,
-    values: ["Positive", "Negative"]
+    values: ["Positive", "Negative"],
   }],
   questionLists: [{
     id: 0,
