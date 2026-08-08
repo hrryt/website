@@ -12,6 +12,7 @@
 - Drop-down for finer controls
 - tricky parallel lines / internal angles etc questions
 - automate allQuestions using file exploration
+- move away from prerendered questions?
 
 # Other stuff
 - minesweeper / youtube video.

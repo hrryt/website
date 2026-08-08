@@ -3,13 +3,8 @@ import CoordinateLabel from "../graphing/CoordinateLabel";
 import Graph from "../graphing/Graph";
 import Question from "../Question";
 
-function pointToString(point) {
-  return point[0].toString() + ',' + point[1].toString()
-}
-
 function shapeToString(shape) {
-  console.log(shape.map((point) => pointToString(point)).join(" "))
-  return shape.map((point) => pointToString(point)).join(" ")
+  return shape.map((point) => point.join(",")).join(" ")
 }
 
 function rotatePoint(point, angle, axis=[0, 0]) {
@@ -33,7 +28,6 @@ export default function DoubleTransformationQuestion({ seed, showAnswer }) {
   const translationVector = axis.map((value, i) => value - rotatedAxis[i])
 
   const endShape = midShape.map((point) => point.map((value, i) => value + translationVector[i]))
-
 
   const question = (<>
     <p>What single transformation..?</p>
