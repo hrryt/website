@@ -1,9 +1,5 @@
 import Question from '../Question.jsx';
-<<<<<<< HEAD
 import { getRandomInt, getRandomBoolean, getRandomChoice, formatCoefficient, getHCF } from '../../scripts/utils.js';
-=======
-import { getRandomInt, getRandomBoolean, getRandomChoice, formatNumber } from '/src/scripts/utils.js';
->>>>>>> 7778bc7 (Add cubic graphing component)
 
 function formatQuadraticExpression(a, b, c) {
   const fa = formatCoefficient(a, { showPlus: false, showOne: false, showZero: false, suffix: 'x^2' });

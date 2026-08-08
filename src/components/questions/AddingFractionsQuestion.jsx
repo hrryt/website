@@ -1,5 +1,5 @@
 import Question from '../Question.jsx';
-import { getRandomInt, getHCF } from '/src/scripts/utils.js';
+import { getRandomInt, getHCF } from '../../scripts/utils.js';
 
 function formatFraction(num, denom) {
   if (denom == 1) { return `${num}`; }
