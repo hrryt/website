@@ -3,6 +3,7 @@
 
 # Questions
 - Improve adding fractions
+- i suppose for a > 1 i should actually factorise 2x-2 etc. factorising code gets bigger
 - Add more questions
   - Add graphing questions
     - Find all roots of this quintic (or something) polynomial (repeated root knowledge)
