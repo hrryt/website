@@ -10,17 +10,18 @@ function getMiddle(points) {
   return [getMean(x), getMean(y)];
 }
 
-function PolygonLabel({ children, points }) {
+function PolygonLabel({ children, points, colour }) {
   const [x, y] = getMiddle(points);
-  return <Label x={x} y={y}>{children}</Label>;
+  return <Label x={x} y={y} colour={colour}>{children}</Label>;
 }
 
 export default function Polygon({ points, label=null, colour="1" }) {
   const pointsString = points.map((point) => point.join(",")).join(" ");
+  const colourClass = `color-${colour}`;
   return (
     <g>
-      <polygon points={pointsString} class={`color-${colour}`}/>
-      {label && <PolygonLabel points={points}>{label}</PolygonLabel>}
+      <polygon points={pointsString} class={colourClass}/>
+      {label && <PolygonLabel points={points} colour={colour}>{label}</PolygonLabel>}
     </g>
   );
 }

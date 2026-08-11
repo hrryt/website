@@ -16,7 +16,7 @@ export default function Home() {
             <Quadratic a={2} b={1} c={-3} colour="1" viewBox={viewBox} />
             <CoordinateLabel x={-.25} y={-3.125} position="bottom" />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
-            <CoordinateLabel x={-4} y={3} position="top" />
+            <CoordinateLabel x={-4} y={3} />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox}/>
           </Graph>
         </div>

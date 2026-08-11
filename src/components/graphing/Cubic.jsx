@@ -1,4 +1,4 @@
-import { getSymmetricBounds } from '/src/scripts/utils.js';
+import { getSymmetricBounds } from '../../scripts/utils.js';
 
 export default function Cubic({ a=1, b=0, c=0, d=0, colour="1", viewBox }) {
   // https://math.stackexchange.com/questions/3356084/to-construct-a-polynomial-using-b%C3%A9zier-curves

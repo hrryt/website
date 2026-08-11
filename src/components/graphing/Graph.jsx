@@ -39,7 +39,13 @@ function AxisTicks({ every = 1, viewBox }) {
   )
 }
 
-export default function Graph({ children, viewBox, width="500", height="500" }) {
+export default function Graph({ children, viewBox, width="300", height="300" }) {
+  const scaleFactor = Math.max(viewBox[2] / width, viewBox[3] / height);
+  const style = `
+    text {
+      font-size: ${scaleFactor}em;
+    }
+  `;
   return (
     <svg
       width={width} height={height} viewBox={viewBox.join(' ')}
@@ -56,11 +62,14 @@ export default function Graph({ children, viewBox, width="500", height="500" }) 
         >
           <polygon points="0,0 4,2 0,4" id='arrowhead' />
         </marker>
+        <style>
+          {style}
+        </style>
       </defs>
       <Grid viewBox={viewBox} />
       <Axes viewBox={viewBox} />
       {children}
-      <AxisTicks viewBox={viewBox} />
+      <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
     </svg>
   );
 }

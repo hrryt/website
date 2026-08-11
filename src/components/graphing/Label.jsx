@@ -15,13 +15,15 @@ function getPosition(position) {
   }
 }
 
-export default function Label({ x, y, position='central', d=.15, children }) {
+export default function Label({ x, y, position='central', colour='auto', d=.15, children }) {
   const [dominantBaseline, textAnchor, dx, dy] = getPosition(position);
+  const colourClass = colour == 'auto' ? '' : `color-${colour}`;
   return (
     <text
       x={x} y={-y} dx={d*dx} dy={-d*dy} transform='scale(1 -1)'
       dominant-baseline={dominantBaseline}
       text-anchor={textAnchor}
+      class={colourClass}
     >
       {children}
     </text>

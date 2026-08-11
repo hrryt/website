@@ -1,4 +1,4 @@
-import { getSymmetricBounds } from '/src/scripts/utils.js';
+import { getSymmetricBounds } from '../../scripts/utils.js';
 
 export default function Quadratic({ a=1, b=0, c=0, colour="1", viewBox }) {
   function f(x) { return a*x*x + b*x + c; }

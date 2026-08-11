@@ -30,12 +30,12 @@ export default function DoubleTransformationQuestion({ seed, showAnswer }) {
     <p>
       What single transformation..?
     </p>
-    <Graph viewBox={viewBox} width="300" height="300">
+    <Graph viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Polygon points={     midShape} label="Q" colour="2" />
       <Polygon points={     endShape} label="R" colour="3" />
-      <CoordinateLabel x={axis1[0]} y={axis1[1]} position="top" />
-      <CoordinateLabel x={axis2[0]} y={axis2[1]} position="top" />
+      <CoordinateLabel x={axis1[0]} y={axis1[1]} />
+      <CoordinateLabel x={axis2[0]} y={axis2[1]} />
     </Graph>
   </>)
 
