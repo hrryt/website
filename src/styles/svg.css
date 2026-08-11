@@ -20,13 +20,13 @@ path.axis {
   stroke-linecap: butt;
 }
 
-polygon#arrowhead {
+polygon.marker {
   fill-opacity: 1;
 }
 
 text {
-  stroke: white;
-  stroke-width: 0.03;
+  stroke: white !important;
+  stroke-width: 0.1;
   paint-order: stroke;
 }
 

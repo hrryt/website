@@ -1,8 +1,9 @@
 import { getRandomChoice, getRandomInt } from "../../scripts/utils";
-import CoordinateLabel from "../graphing/CoordinateLabel";
+import Point from "../graphing/Point";
 import Polygon from "../graphing/Polygon";
 import Graph from "../graphing/Graph";
 import Question from "../Question";
+import Equation from "../Equation";
 
 function rotatePoint(point, angle, axis=[0, 0]) {
   const diff = [point[0] - axis[0], point[1] - axis[1]]
@@ -15,29 +16,56 @@ export default function DoubleTransformationQuestion({ seed, showAnswer }) {
   const viewBox = [-7, -7, 14, 14]
   const originalShape = [[0, 1], [2, 1], [0, 2]]
   const axis1 = [getRandomInt(-3, 3, seed++), getRandomInt(-3, 3, seed++)]
-  const axis2 = [getRandomInt(-3, 3, seed++), getRandomInt(-3, 3, seed++)]
-  const angle = getRandomChoice([Math.PI/2, Math.PI, 3*Math.PI/2], seed++)
+  let axis2 = axis1;
+  while (axis2.every((x, i) => x === axis1[i])) {
+    axis2 = [getRandomInt(-3, 3, seed++), getRandomInt(-3, 3, seed++)]
+  }
+  const angleDegrees = getRandomChoice([90, 180, -90], seed++)
+  const angle = angleDegrees / 180 * Math.PI
 
   // Rotation then translation!. could do other way around if really needed.
   const midShape = originalShape.map((point) => rotatePoint(point, angle, axis1))
 
   const rotatedAxis = rotatePoint(axis2, angle, axis1)
-  const translationVector = axis2.map((value, i) => value - rotatedAxis[i])
+  const translationVector = axis2.map((value, i) => Math.round(value - rotatedAxis[i]))
 
   const endShape = midShape.map((point) => point.map((value, i) => value + translationVector[i]))
 
+  let angleDirection = ""
+  if (angleDegrees !== 180) {
+    if (angleDegrees < 0) {
+      angleDirection = "counterclockwise"
+    } else {
+      angleDirection = "clockwise"
+    }
+  }
+
+  const angleExpression = (
+    <span>
+      <Equation equation={`${Math.abs(angleDegrees)} degree`} /> {angleDirection}
+    </span>
+  )
+
   const question = (<>
-    <p>
-      What single transformation..?
-    </p>
+    <p>Shape P is rotated {angleExpression} about point Q to form shape R.</p>
+    <p>Shape R is translated by <Equation equation={`vec(${translationVector[0]}, ${translationVector[1]})`} /> to form shape S.</p>
+    <p>What single transformation maps shape P onto shape S?</p>
     <Graph viewBox={viewBox}>
-      <Polygon points={originalShape} label="P" colour="1" />
-      <Polygon points={     midShape} label="Q" colour="2" />
-      <Polygon points={     endShape} label="R" colour="3" />
-      <CoordinateLabel x={axis1[0]} y={axis1[1]} />
-      <CoordinateLabel x={axis2[0]} y={axis2[1]} />
+      <Polygon points={originalShape}  label="P" colour="1" />
+      <Point x={axis1[0]} y={axis1[1]} label="Q" colour="2" />
     </Graph>
   </>)
 
-  return <Question question={question} answer="" showAnswer={showAnswer} />
+  const answer = (<>
+    <p>Rotation {angleExpression} about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
+    <Graph viewBox={viewBox}>
+      <Polygon points={originalShape}  label="P" colour="1" />
+      <Point x={axis1[0]} y={axis1[1]} label="Q" colour="2" />
+      <Polygon points={     midShape}  label="R" colour="3" />
+      <Polygon points={     endShape}  label="S" colour="4" />
+      <Point x={axis2[0]} y={axis2[1]} />
+    </Graph>
+  </>)
+
+  return <Question question={question} answer={answer} showAnswer={showAnswer} />
 }

@@ -1,4 +1,5 @@
 import Label from './Label.jsx';
+import { getColourClass } from '../../scripts/utils.js';
 
 function getMean(arr) {
   return arr.reduce((a, b) => a + b) / arr.length;
@@ -15,12 +16,11 @@ function PolygonLabel({ children, points, colour }) {
   return <Label x={x} y={y} colour={colour}>{children}</Label>;
 }
 
-export default function Polygon({ points, label=null, colour="1" }) {
+export default function Polygon({ points, label=null, colour="auto" }) {
   const pointsString = points.map((point) => point.join(",")).join(" ");
-  const colourClass = `color-${colour}`;
   return (
     <g>
-      <polygon points={pointsString} class={colourClass}/>
+      <polygon points={pointsString} class={getColourClass(colour)}/>
       {label && <PolygonLabel points={points} colour={colour}>{label}</PolygonLabel>}
     </g>
   );

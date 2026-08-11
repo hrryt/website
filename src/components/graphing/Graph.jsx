@@ -60,7 +60,16 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
           markerUnits="strokeWidth"
           orient="auto"
         >
-          <polygon points="0,0 4,2 0,4" id='arrowhead' />
+          <polygon class='marker' points="0,0 4,2 0,4" />
+        </marker>
+        <marker
+          id="cross"
+          viewBox="0 0 6 6"
+          refX="3" refY="3"
+          markerWidth="6" markerHeight="6"
+          markerUnits="strokeWidth"
+        >
+          <polygon class='marker' points="0,1 1,0 3,2 5,0 6,1 4,3 6,5 5,6 3,4 1,6 0,5 2,3" />
         </marker>
         <style>
           {style}
@@ -68,8 +77,8 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
       </defs>
       <Grid viewBox={viewBox} />
       <Axes viewBox={viewBox} />
-      {children}
       <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
+      {children}
     </svg>
   );
 }
