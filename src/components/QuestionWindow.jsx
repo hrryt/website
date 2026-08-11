@@ -78,7 +78,7 @@ export default function QuestionWindow({ data, title }) {
       <fieldset>
         <legend>Options</legend>
         <button onClick={revealAnswers}>
-          {showAnswers ? "Hide" : "Show"} Answers
+          {showAnswers ? "Show Questions" : "Show Answers"}
         </button>
         <button onClick={triggerRefresh}>
           Refresh Questions
