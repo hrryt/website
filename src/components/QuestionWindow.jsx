@@ -3,6 +3,8 @@ import QuestionList from './QuestionList.jsx';
 import { getRandomInt, getRandomNumber, getRandomChoice } from '../scripts/utils.js';
 import Window from './Window.jsx';
 
+const seedDiff = 100;
+
 function resolveParameters(question, variables) {
   const parameters = question.constants ?? { };
   const variableKeys = question.variables ?? { };
@@ -16,7 +18,7 @@ function renderQuestion(seed, showAnswer, variables) {
   return (question, i) => {
     const QuestionComponent = question.type;
     const parameters = resolveParameters(question, variables);
-    return <QuestionComponent key={i} seed={seed+i} showAnswer={showAnswer} {...parameters} />;
+    return <QuestionComponent key={i} seed={seed+seedDiff*i} showAnswer={showAnswer} {...parameters} />;
   };
 }
 
@@ -61,7 +63,7 @@ export default function QuestionWindow({ data, title }) {
     const { id: id, n: n, questions: unique_questions } = questionList;
     const questions = shuffleArray(unique_questions, n, current_seed);
     const randomQuestionList = getQuestionList(id, questions, showAnswers, current_seed, variables);
-    current_seed += n;
+    current_seed += seedDiff * n;
     return randomQuestionList;
   });
 
@@ -76,7 +78,7 @@ export default function QuestionWindow({ data, title }) {
       <fieldset>
         <legend>Options</legend>
         <button onClick={revealAnswers}>
-          {showAnswers ? "Hide" : "Show"} Answers
+          {showAnswers ? "Show Questions" : "Show Answers"}
         </button>
         <button onClick={triggerRefresh}>
           Refresh Questions

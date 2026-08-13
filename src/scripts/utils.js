@@ -35,3 +35,8 @@ export function getSymmetricBounds(midX, viewBox) {
   const halfWidth = Math.max(midX - minX, minX + width - midX);
   return [midX - halfWidth, midX + halfWidth];
 }
+
+export function getColourClass(colour) {
+  if (colour == 'auto') { return ''; }
+  return `color-${colour}`;
+}

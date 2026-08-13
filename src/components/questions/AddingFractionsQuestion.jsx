@@ -12,21 +12,21 @@ function simplifyFraction(num, denom) {
 }
 
 function getRandomFraction(seed) {
-  const num0 = getRandomInt(1, 5, seed);
-  const denom0 = getRandomInt(2, 10, seed + .05);
+  const num0 = getRandomInt(1, 5, seed++);
+  const denom0 = getRandomInt(2, 10, seed++);
   const [num, denom] = simplifyFraction(num0, denom0);
-  if (denom == 1) { return getRandomFraction(seed + .1); }
+  if (denom == 1) { return getRandomFraction(seed++); }
   return [num, denom];
 }
 
 function getRandomFractions(seed) {
-  const [num1, denom1] = getRandomFraction(seed);
-  const [num2, denom2] = getRandomFraction(seed + .5);
+  const [num1, denom1] = getRandomFraction(seed++);
+  const [num2, denom2] = getRandomFraction(seed++);
   return [num1, denom1, num2, denom2];
 }
 
 export default function AddingFractionsQuestion({ seed, showAnswer }) {
-  const [num1, denom1, num2, denom2] = getRandomFractions(seed);
+  const [num1, denom1, num2, denom2] = getRandomFractions(seed++);
 
   const question = formatFraction(num1, denom1) + ' + ' + formatFraction(num2, denom2);
 

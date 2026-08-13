@@ -10,27 +10,27 @@ function Axes({ viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
   return (
     <g>
-      <path id="axes" d={`M ${minX},0 h ${width-.1}`} marker-end="url(#arrow)"/>
-      <path id="axes" d={`M 0,${minY} v ${height-.1}`} marker-end="url(#arrow)"/>
+      <path class="axis" d={`M ${minX},0 h ${width-.1}`} marker-end="url(#arrow)"/>
+      <path class="axis" d={`M 0,${minY} v ${height-.1}`} marker-end="url(#arrow)"/>
     </g>
   );
 }
 
-function AxisTicks({ viewBox }) {
+function AxisTicks({ every = 1, viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
   return (
     <g>
       <g>
         {Array.from({ length: width - 1 }).map((_, i) => {
           const x = i + minX + 1;
-          if (x == 0) { return; }
+          if (x == 0 || x % every) { return; }
           return <Label x={x} y="0" position="bottom" d={.1}>{x}</Label>;
         })}
       </g>
       <g>
         {Array.from({ length: height - 1 }).map((_, i) => {
           const y = i + minY + 1;
-          if (y == 0) { return; }
+          if (y == 0 || y % every) { return; }
           return <Label x="0" y={y} position="left" d={.1}>{y}</Label>;
         })}
       </g>
@@ -39,7 +39,13 @@ function AxisTicks({ viewBox }) {
   )
 }
 
-export default function Graph({ children, viewBox, width="500", height="500" }) {
+export default function Graph({ children, viewBox, width="300", height="300" }) {
+  const scaleFactor = Math.max(viewBox[2] / width, viewBox[3] / height);
+  const style = `
+    text {
+      font-size: ${scaleFactor}em;
+    }
+  `;
   return (
     <svg
       width={width} height={height} viewBox={viewBox.join(' ')}
@@ -54,13 +60,25 @@ export default function Graph({ children, viewBox, width="500", height="500" }) 
           markerUnits="strokeWidth"
           orient="auto"
         >
-          <path d="M 0,0 L 4,2 L 0,4 z" id='arrowhead' />
+          <polygon class='marker' points="0,0 4,2 0,4" />
         </marker>
+        <marker
+          id="cross"
+          viewBox="0 0 6 6"
+          refX="3" refY="3"
+          markerWidth="6" markerHeight="6"
+          markerUnits="strokeWidth"
+        >
+          <polygon class='marker' points="0,1 1,0 3,2 5,0 6,1 4,3 6,5 5,6 3,4 1,6 0,5 2,3" />
+        </marker>
+        <style>
+          {style}
+        </style>
       </defs>
       <Grid viewBox={viewBox} />
       <Axes viewBox={viewBox} />
+      <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
       {children}
-      <AxisTicks viewBox={viewBox} />
     </svg>
   );
 }
