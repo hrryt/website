@@ -1,5 +1,4 @@
 import { getRandomChoice, getRandomInt } from "../../scripts/utils";
-import CoordinateLabel from "../graphing/CoordinateLabel";
 import Graph from "../graphing/Graph";
 import Question from "../Question";
 
@@ -14,28 +13,61 @@ function reflectPoint(point, line = {a: 1, b: 1, c: 0}) {
 }
 
 function findIntersect(line1, line2) {
-  // this condition should work for both bs = 0 too.
-  if (line1.a/line1.b == line2.a/line2.b) {
+  const k = line1.a*line2.b - line2.a*line1.b
+  // parallel
+  if (k == 0) {
     return null
   }
-  return ()
+  return [(line1.c*line2.b - line2.c*line1.b) / k, (line1.a*line2.c - line2.a*line1.c) / k]
+}
+
+function randomLine(seed, lineType, excludedLine = {a: 100, b: 100, c: 100}) {
+  let f = (seed) => {return {a: 0, b: 1, c: 1}}
+  switch (lineType) {
+    case 'horizontal':
+      f = (seed) => {return {a: 0, b: 1, c: getRandomInt(-3, 3, seed)}}
+      break
+    case 'vertical':
+      f = (seed) => {return {a: 1, b: 0, c: getRandomInt(-3, 3, seed)}}
+      break
+    case 'diagonal':
+      f = (seed) => {return {a: 1, b: getRandomChoice([-1, 1], seed), c: 0}}
+      break
+  }
+  
+  let output = excludedLine
+  while (output.a == excludedLine.a && output.b == excludedLine.b && output.c == excludedLine.c) {
+    output = f(seed++)
+  }
+  return output
 }
 
 export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   const viewBox = [-7, -7, 14, 14]
   const originalShape = [[0, 1], [2, 1], [0, 2]]
 
-  const linetypes = ['horizontal', 'vertical', 'diagonal']
+  const lineTypes = ['horizontal', 'vertical', 'diagonal']
+  const line1Type = getRandomChoice(lineTypes, seed++)
+  const line2Type = getRandomChoice(lineTypes, seed++)
 
-
-
+  const line1 = randomLine(seed++, line1Type)
+  const line2 = randomLine(seed++, line2Type, line1)
+  
   const question = (<>
     <p>
-      What single transformation..?
+      Reflect in line 1, then line 2. What single transformation describes this?
     </p>
     <Graph viewBox={viewBox} width="300" height="300">
     </Graph>
   </>)
 
-  return <Question question={question} answer="" showAnswer={showAnswer} />
+  const intersect = findIntersect(line1, line2)
+  let answer = ""
+  if (intersect === null) { // translation
+
+  } else { // rotation 180
+  }
+
+
+  return <Question question={question} answer={answer} showAnswer={showAnswer} />
 }
