@@ -36,17 +36,24 @@ function getArc(points, radius) {
   return [start, end];
 }
 
-function getLabelPosition(points, radius, start, end) {
-  const midpoint = interpolate(start, end, 0.5);
-  return interpolateDistance(points[1], midpoint, 1.5 * radius);
+function AngleArc({ points, radius, colour }) {
+  const [start, end] = getArc(points, radius);
+  return <path d={`M ${start} A ${radius} ${radius} 0 0 1 ${end}`} class={getColourClass(colour)} />;
 }
 
-export default function Angle({ points, radius = 0.5, label = null, colour = "auto" }) {
-  const [start, end] = getArc(points, radius);
+function AngleLabel({ points, radius, colour, children }) {
+  const [start, end] = getArc(points, 1);
+  const midpoint = interpolate(start, end, 0.5);
+  const point = interpolateDistance(points[1], midpoint, 1.5 * radius);
+  return <Label point={point} colour={colour}>{children}</Label>;
+}
+
+export default function Angle({ points, radius = 0.5, double = false, label = null, colour = "auto" }) {
   return (
     <g>
-      <path d={`M ${start} A ${radius} ${radius} 0 0 1 ${end}`} class={getColourClass(colour)} />
-      {label && <Label point={getLabelPosition(points, radius, start, end)} colour={colour}>{label}</Label>}
+      <AngleArc points={points} radius={radius} colour={colour} />
+      {double && <AngleArc points={points} radius={1.2*radius} colour={colour} />}
+      {label && <AngleLabel points={points} radius={radius} colour={colour}>{label}</AngleLabel>}
     </g>
   );
 }

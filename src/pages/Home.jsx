@@ -15,7 +15,7 @@ export default function Home() {
           <Graph viewBox={viewBox}>
             <Quadratic a={2} b={1} c={-3} colour="1" viewBox={viewBox} />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
-            <Angle points={[[-4,3], [1,2], [-1,1]]} colour="2" />
+            <Angle points={[[-4,3], [1,2], [-1,1]]} double={true} colour="2" />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox}/>
           </Graph>
         </div>
