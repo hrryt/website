@@ -36,18 +36,17 @@ function getArc(points, radius) {
   return [start, end];
 }
 
-function getLabelPosition(points, start, end) {
+function getLabelPosition(points, radius, start, end) {
   const midpoint = interpolate(start, end, 0.5);
-  return interpolate(points[1], midpoint, 1.5);
+  return interpolateDistance(points[1], midpoint, 1.5 * radius);
 }
 
 export default function Angle({ points, radius = 0.5, label = null, colour = "auto" }) {
   const [start, end] = getArc(points, radius);
-  if (label ) { const [labelX, labelY] = getLabelPosition(points, start, end); }
   return (
     <g>
       <path d={`M ${start} A ${radius} ${radius} 0 0 1 ${end}`} class={getColourClass(colour)} />
-      {label && <Label x={labelX} y={labelY} colour={colour}>{label}</Label>}
+      {label && <Label point={getLabelPosition(points, radius, start, end)} colour={colour}>{label}</Label>}
     </g>
   );
 }

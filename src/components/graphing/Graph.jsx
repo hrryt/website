@@ -24,17 +24,17 @@ function AxisTicks({ every = 1, viewBox }) {
         {Array.from({ length: width - 1 }).map((_, i) => {
           const x = i + minX + 1;
           if (x == 0 || x % every) { return; }
-          return <Label x={x} y="0" position="bottom" d={.1}>{x}</Label>;
+          return <Label point={[x, 0]} position="bottom" d={.1}>{x}</Label>;
         })}
       </g>
       <g>
         {Array.from({ length: height - 1 }).map((_, i) => {
           const y = i + minY + 1;
           if (y == 0 || y % every) { return; }
-          return <Label x="0" y={y} position="left" d={.1}>{y}</Label>;
+          return <Label point={[0, y]} position="left" d={.1}>{y}</Label>;
         })}
       </g>
-      <Label x="0" y="0" position="bottom-left" d={.1}>0</Label>
+      <Label point={[0, 0]} position="bottom-left" d={.1}>0</Label>
     </g>
   )
 }

@@ -51,19 +51,19 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
     <p>Shape R is translated by <Equation equation={`vec(${translationVector[0]}, ${translationVector[1]})`} /> to form shape S.</p>
     <p>What single transformation maps shape P onto shape S?</p>
     <Graph viewBox={viewBox}>
-      <Polygon points={originalShape}  label="P" colour="1" />
-      <Point x={axis1[0]} y={axis1[1]} label="Q" colour="2" />
+      <Polygon points={originalShape} label="P" colour="1" />
+      <Point   point={         axis1} label="Q" colour="2" />
     </Graph>
   </>)
 
   const answer = (<>
     <p>Rotation {angleExpression} about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
     <Graph viewBox={viewBox}>
-      <Polygon points={originalShape}  label="P" colour="1" />
-      <Point x={axis1[0]} y={axis1[1]} label="Q" colour="2" />
-      <Polygon points={     midShape}  label="R" colour="3" />
-      <Polygon points={     endShape}  label="S" colour="4" />
-      <Point x={axis2[0]} y={axis2[1]} />
+      <Polygon points={originalShape} label="P" colour="1" />
+      <Point   point={         axis1} label="Q" colour="2" />
+      <Polygon points={     midShape} label="R" colour="3" />
+      <Polygon points={     endShape} label="S" colour="4" />
+      <Point   point={         axis2} />
     </Graph>
   </>)
 

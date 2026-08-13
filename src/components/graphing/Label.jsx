@@ -17,7 +17,8 @@ function getPosition(position) {
   }
 }
 
-export default function Label({ x, y, position='central', colour='auto', d=.15, children }) {
+export default function Label({ point, position='central', colour='auto', d=.15, children }) {
+  const [x, y] = point;
   const [dominantBaseline, textAnchor, dx, dy] = getPosition(position);
   return (
     <text
