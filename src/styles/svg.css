@@ -22,6 +22,8 @@ path.axis {
 
 polygon.marker {
   fill-opacity: 1;
+  stroke: context-stroke;
+  fill: context-fill;
 }
 
 text {

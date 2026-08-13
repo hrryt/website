@@ -40,3 +40,36 @@ export function getColourClass(colour) {
   if (colour == 'auto') { return ''; }
   return `color-${colour}`;
 }
+
+function sumVectors(arr) {
+  return arr.reduce((a, b) => a.map((ai, i) => ai + b[i]));
+}
+
+function scale(vector, factor) {
+  return vector.map(a => a * factor);
+}
+
+export function interpolate(start, end, along) {
+  return sumVectors([start, scale(getVector(start, end), along)]);
+}
+
+function sum(arr) {
+  return arr.reduce((a, b) => a + b);
+}
+
+function normalise(vector, scaleFactor = 1) {
+  const length = Math.sqrt(sum(vector.map(a => a*a)));
+  return scale(vector, scaleFactor / length);
+}
+
+function getVector(start, end) {
+  return start.map((a, i) => end[i] - a);
+}
+
+export function interpolateDistance(start, end, distance) {
+  return sumVectors([start, normalise(getVector(start, end), distance)]);
+}
+
+export function getMidpoint(points) {
+  return interpolate(points[0], points[1], 0.5);
+}

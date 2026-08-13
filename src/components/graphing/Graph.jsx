@@ -2,7 +2,7 @@ import Label from './Label.jsx';
 
 function Grid({ viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
-  const d = `M ${minX},${minY} h ${width} ${`m -${width},1 h ${width}`.repeat(height)} v -${height} ${`m -1,${height} v -${height}`.repeat(width)}`;
+  const d = `M ${minX},${minY} h ${width}${` m -${width},1 h ${width}`.repeat(height)} v -${height}${` m -1,${height} v -${height}`.repeat(width)}`;
   return <path id="grid" d={d} />;
 }
 
@@ -57,19 +57,27 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
           viewBox="0 0 4 4"
           refX="3" refY="2"
           markerWidth="4" markerHeight="4"
-          markerUnits="strokeWidth"
           orient="auto"
         >
           <polygon class='marker' points="0,0 4,2 0,4" />
         </marker>
         <marker
           id="cross"
-          viewBox="0 0 6 6"
-          refX="3" refY="3"
-          markerWidth="6" markerHeight="6"
-          markerUnits="strokeWidth"
+          viewBox="0 0 10 10"
+          refX="5" refY="5"
+          markerWidth="5" markerHeight="5"
+          orient="45"
         >
-          <polygon class='marker' points="0,1 1,0 3,2 5,0 6,1 4,3 6,5 5,6 3,4 1,6 0,5 2,3" />
+          <polygon class='marker' points="0,4 0,6 4,6 4,10 6,10 6,6 10,6 10,4 4,4 4,0 6,0 6,4" />
+        </marker>
+        <marker
+          id="hash"
+          viewBox="0 0 10 10"
+          refX="5" refY="5"
+          markerWidth="5" markerHeight="5"
+          orient="auto"
+        >
+          <polygon class="marker" points="4,0 4,10 6,10 6,0" />
         </marker>
         <style>
           {style}

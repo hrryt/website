@@ -1,5 +1,6 @@
 # Fixes
 - Use KaTeX_Math font outside MathML
+- colour="auto" -> no display?
 
 # Questions
 - Improve adding fractions
