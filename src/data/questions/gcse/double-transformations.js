@@ -1,12 +1,12 @@
-import DoubleTransformationQuestion from "/src/components/questions/DoubleTransformationQuestion";
 import DoubleReflectionQuestion from "../../../components/questions/DoubleReflectionQuestion";
+import RotationTranslationQuestion from "../../../components/questions/RotationTranslationQuestion";
 
 export const data = {
   questionLists: [{
     id: 0,
     n: 3,
     questions: [{
-      type: DoubleTransformationQuestion,
+      type: RotationTranslationQuestion,
     },
     {
       type: DoubleReflectionQuestion,

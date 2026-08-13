@@ -12,7 +12,7 @@ function rotatePoint(point, angle, axis=[0, 0]) {
   return [axis[0] + c*diff[0] + s*diff[1], axis[1] + c*diff[1] - s*diff[0]]
 }
 
-export default function DoubleTransformationQuestion({ seed, showAnswer }) {
+export default function RotationTranslationQuestion({ seed, showAnswer }) {
   const viewBox = [-7, -7, 14, 14]
   const originalShape = [[0, 1], [2, 1], [0, 2]]
   const axis1 = [getRandomInt(-3, 3, seed++), getRandomInt(-3, 3, seed++)]
