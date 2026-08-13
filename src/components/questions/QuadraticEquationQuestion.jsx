@@ -34,18 +34,27 @@ function formatFactor(x_coeff, const_coeff) {
 }
 
 function formatFactors(l, m, n, o) {
-  if (l == n && m == o) { return `${formatFactor(l, m)}^2`}
-  return `${formatFactor(l, m)}${formatFactor(n, o)}`
+  const hcf1 = Math.abs(getHCF(l, m))
+  const hcf2 = Math.abs(getHCF(n, o))
+  const frontCoefficient = hcf1 * hcf2
+  l = l / hcf1
+  m = m / hcf1
+  n = n / hcf2
+  o = o / hcf2
+
+  const fFrontCoefficient = formatCoefficient(frontCoefficient, {showPlus: false, showOne: false, showZero: true})
+  if (l == n && m == o) { return `${fFrontCoefficient}${formatFactor(l, m)}^2`}
+  return `${fFrontCoefficient}${formatFactor(l, m)}${formatFactor(n, o)}`
 }
 
 export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality, framing, cSigns }) {
   // (lx + m)(nx + o)
 
   const aChoices = Array();
-  aPlurality.includes("a=1") && aChoices.push(1);
-  aPlurality.includes("a>1") && aChoices.push(2, 3);
-  let l = getRandomChoice(aChoices, seed++);
-  let n = getRandomChoice(aChoices, seed++);
+  aPlurality.includes("a=1") && aChoices.push([1, 1]);
+  // conveniently these all multiply to < 6.
+  aPlurality.includes("a>1") && aChoices.push([1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [2, 2], [2, 3]);
+  let [l, n] = getRandomChoice(aChoices, seed++)
 
   const factoriseChoices = Array();
   framing.includes("Solve") && factoriseChoices.push(false);
@@ -62,6 +71,7 @@ export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality
   let m = getRandomInt(1, 9, seed++) * mSign
   let o = getRandomInt(1, 9, seed++) * mSign * cSign
 
+  // order by root value
   if (-m/l > -o/n) {
     [l, m, n, o] = [n, o, l, m]
   }
