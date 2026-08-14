@@ -1,5 +1,5 @@
 import Label from './Label.jsx';
-import { getColourClass, getMidpoint, interpolate, interpolateDistance } from '../../scripts/utils.js';
+import { getColourClass, getMidpoint, interpolateDistance } from '../../scripts/utils.js';
 
 function getArc(points, radius) {
   const start = interpolateDistance(points[1], points[0], radius);

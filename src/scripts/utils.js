@@ -49,10 +49,6 @@ function scale(vector, factor) {
   return vector.map(a => a * factor);
 }
 
-export function interpolate(start, end, along) {
-  return sumVectors([start, scale(getVector(start, end), along)]);
-}
-
 function sum(arr) {
   return arr.reduce((a, b) => a + b);
 }
@@ -64,6 +60,10 @@ function normalise(vector, scaleFactor = 1) {
 
 function getVector(start, end) {
   return start.map((a, i) => end[i] - a);
+}
+
+function interpolate(start, end, along) {
+  return sumVectors([start, scale(getVector(start, end), along)]);
 }
 
 export function interpolateDistance(start, end, distance) {

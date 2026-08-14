@@ -6,6 +6,7 @@ import Polygon from '../components/graphing/Polygon.jsx';
 import Angle from '../components/graphing/Angle.jsx';
 import Segment from '../components/graphing/Segment.jsx';
 import Line from '../components/graphing/Line.jsx';
+import Point from '../components/graphing/Point.jsx';
 
 export default function Home() {
   const viewBox = [-5, -4, 8, 8];
@@ -19,8 +20,9 @@ export default function Home() {
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
             <Angle points={[[-4,3], [1,2], [-1,1]]} double={true} colour="2" />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox} />
-            <Segment points={[[0,1], [2,2]]} marker="hash" colour="4" />
             <Line line={{a: -10, b: -9, c: -1}} colour="5" viewBox={viewBox} />
+            <Segment points={[[0,1], [2,2]]} marker="double-feather" />
+            <Point point={[0,1]} label="Q" colour="1" />
           </Graph>
         </div>
       </Window>

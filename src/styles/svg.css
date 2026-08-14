@@ -1,34 +1,40 @@
 path,polygon,line,polyline,circle,ellipse {
-  stroke-width: 0.06;
   stroke-linejoin: round;
   stroke-linecap: round;
   fill-opacity: 0;
+  stroke: black;
 }
 
 polygon {
   fill-opacity: 0.5;
+  stroke: black;
+  fill: black;
 }
 
 path#grid {
   stroke: black;
-  stroke-width: 0.01;
 }
 
 path.axis {
   stroke: black;
-  stroke-width: 0.08;
   stroke-linecap: butt;
 }
 
-polygon.marker {
-  fill-opacity: 1;
+.marker {
   stroke: context-stroke;
   fill: context-fill;
 }
 
+line.marker, polyline.marker {
+  stroke-width: 1;
+}
+
+polygon.marker {
+  fill-opacity: 1;
+}
+
 text {
   stroke: white !important;
-  stroke-width: 0.1;
   paint-order: stroke;
 }
 

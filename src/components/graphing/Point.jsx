@@ -5,7 +5,7 @@ export default function Point({ point, label=null, colour="auto", position="top"
   return (
     <g>
       <path marker-start="url(#cross)" d={`M ${point}`} class={getColourClass(colour)}/>
-      {label && <Label point={point} position={position} d={.3} colour={colour}>{label}</Label>}
+      {label && <Label point={point} position={position} spacing={10} colour={colour}>{label}</Label>}
     </g>
   );
 }

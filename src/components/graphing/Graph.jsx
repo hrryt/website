@@ -1,3 +1,4 @@
+import { ScaleFactorContext } from '../../scripts/contexts.js';
 import Label from './Label.jsx';
 
 function Grid({ viewBox }) {
@@ -24,17 +25,17 @@ function AxisTicks({ every = 1, viewBox }) {
         {Array.from({ length: width - 1 }).map((_, i) => {
           const x = i + minX + 1;
           if (x == 0 || x % every) { return; }
-          return <Label point={[x, 0]} position="bottom" d={.1}>{x}</Label>;
+          return <Label point={[x, 0]} position="bottom">{x}</Label>;
         })}
       </g>
       <g>
         {Array.from({ length: height - 1 }).map((_, i) => {
           const y = i + minY + 1;
           if (y == 0 || y % every) { return; }
-          return <Label point={[0, y]} position="left" d={.1}>{y}</Label>;
+          return <Label point={[0, y]} position="left">{y}</Label>;
         })}
       </g>
-      <Label point={[0, 0]} position="bottom-left" d={.1}>0</Label>
+      <Label point={[0, 0]} position="bottom-left">0</Label>
     </g>
   )
 }
@@ -44,6 +45,13 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
   const style = `
     text {
       font-size: ${scaleFactor}em;
+      stroke-width: ${4 * scaleFactor};
+    }
+    path,polygon,line,polyline,circle,ellipse {
+      stroke-width: ${2.5 * scaleFactor};
+    }
+    path#grid {
+      stroke-width: ${0.5 * scaleFactor};
     }
   `;
   return (
@@ -63,30 +71,61 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
         </marker>
         <marker
           id="cross"
-          viewBox="0 0 10 10"
-          refX="5" refY="5"
-          markerWidth="5" markerHeight="5"
-          orient="45"
+          viewBox="0 0 6 6"
+          refX="3" refY="3"
+          markerWidth="6" markerHeight="6"
         >
-          <polygon class='marker' points="0,4 0,6 4,6 4,10 6,10 6,6 10,6 10,4 4,4 4,0 6,0 6,4" />
+          <line class='marker' x1="1" y1="1" x2="5" y2="5" />
+          <line class='marker' x1="1" y1="5" x2="5" y2="1" />
         </marker>
         <marker
           id="hash"
-          viewBox="0 0 10 10"
-          refX="5" refY="5"
-          markerWidth="5" markerHeight="5"
+          viewBox="0 0 2 6"
+          refX="1" refY="3"
+          markerWidth="2" markerHeight="6"
           orient="auto"
         >
-          <polygon class="marker" points="4,0 4,10 6,10 6,0" />
+          <line class="marker" x1="1" y1="1" x2="1" y2="5" />
+        </marker>
+        <marker
+          id="double-hash"
+          viewBox="0 0 4 6"
+          refX="2" refY="3"
+          markerWidth="4" markerHeight="6"
+          orient="auto"
+        >
+          <line class="marker" x1="1" y1="1" x2="1" y2="5" />
+          <line class="marker" x1="3" y1="1" x2="3" y2="5" />
+        </marker>
+        <marker
+          id="feather"
+          viewBox="0 0 6 6"
+          refX="5" refY="3"
+          markerWidth="6" markerHeight="6"
+          orient="auto"
+        >
+          <polyline class="marker" points="2,1 5,3 2,5" />
+        </marker>
+        <marker
+          id="double-feather"
+          viewBox="0 0 9 6"
+          refX="5" refY="3"
+          markerWidth="9" markerHeight="6"
+          orient="auto"
+        >
+          <polyline class="marker" points="2,1 5,3 2,5" />
+          <polyline class="marker" points="5,1 8,3 5,5" />
         </marker>
         <style>
           {style}
         </style>
       </defs>
-      <Grid viewBox={viewBox} />
-      <Axes viewBox={viewBox} />
-      <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
-      {children}
+      <ScaleFactorContext value={scaleFactor}>
+        <Grid viewBox={viewBox} />
+        <Axes viewBox={viewBox} />
+        <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
+        {children}
+      </ScaleFactorContext>
     </svg>
   );
 }

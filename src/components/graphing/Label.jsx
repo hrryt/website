@@ -1,3 +1,5 @@
+import { useContext } from 'preact/hooks';
+import { ScaleFactorContext } from '../../scripts/contexts.js';
 import { getColourClass } from '../../scripts/utils.js';
 
 function getPosition(position) {
@@ -17,12 +19,13 @@ function getPosition(position) {
   }
 }
 
-export default function Label({ point, position='central', colour='auto', d=.15, children }) {
+export default function Label({ point, position='central', spacing=3, colour='auto', children }) {
   const [x, y] = point;
   const [dominantBaseline, textAnchor, dx, dy] = getPosition(position);
+  const scaledSpacing = spacing * useContext(ScaleFactorContext);
   return (
     <text
-      x={x} y={-y} dx={d*dx} dy={-d*dy} transform='scale(1 -1)'
+      x={x} y={-y} dx={scaledSpacing * dx} dy={scaledSpacing * -dy} transform='scale(1 -1)'
       dominant-baseline={dominantBaseline}
       text-anchor={textAnchor}
       class={getColourClass(colour)}
