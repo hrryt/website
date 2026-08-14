@@ -1,3 +1,3 @@
 import { createContext } from 'preact';
 
-export const ScaleFactorContext = createContext(null);
+export const StrokeWidthContext = createContext(null);
