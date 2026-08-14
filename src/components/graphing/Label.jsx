@@ -19,7 +19,7 @@ function getPosition(position) {
   }
 }
 
-export default function Label({ point, position='central', spacing=3, colour='auto', children }) {
+export default function Label({ point, position='central', spacing=3, weight="normal", colour='auto', children }) {
   const [x, y] = point;
   const [dominantBaseline, textAnchor, dx, dy] = getPosition(position);
   const scaledSpacing = spacing * useContext(ScaleFactorContext);
@@ -29,6 +29,7 @@ export default function Label({ point, position='central', spacing=3, colour='au
       dominant-baseline={dominantBaseline}
       text-anchor={textAnchor}
       class={getColourClass(colour)}
+      font-weight={weight}
     >
       {children}
     </text>

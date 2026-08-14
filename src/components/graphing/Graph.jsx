@@ -22,20 +22,26 @@ function AxisTicks({ every = 1, viewBox }) {
   return (
     <g>
       <g>
-        {Array.from({ length: width - 1 }).map((_, i) => {
-          const x = i + minX + 1;
-          if (x == 0 || x % every) { return; }
-          return <Label point={[x, 0]} position="bottom">{x}</Label>;
-        })}
+        <g>
+          {Array.from({ length: width - 1 }).map((_, i) => {
+            const x = i + minX + 1;
+            if (x == 0 || x % every) { return; }
+            return <Label point={[x, 0]} position="bottom">{x}</Label>;
+          })}
+        </g>
+        <g>
+          {Array.from({ length: height - 1 }).map((_, i) => {
+            const y = i + minY + 1;
+            if (y == 0 || y % every) { return; }
+            return <Label point={[0, y]} position="left">{y}</Label>;
+          })}
+        </g>
+        <Label point={[0, 0]} position="bottom-left">0</Label>
       </g>
       <g>
-        {Array.from({ length: height - 1 }).map((_, i) => {
-          const y = i + minY + 1;
-          if (y == 0 || y % every) { return; }
-          return <Label point={[0, y]} position="left">{y}</Label>;
-        })}
+        <Label weight="bold" point={[minX + width, 0]} position="bottom-left" spacing={7}>x</Label>
+        <Label weight="bold" point={[0, minY + height]} position="bottom-left" spacing={7}>y</Label>
       </g>
-      <Label point={[0, 0]} position="bottom-left">0</Label>
     </g>
   )
 }
