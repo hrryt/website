@@ -20,7 +20,7 @@ export function getHCF(a, b) {
   return b == 0 ? a : getHCF(b, a % b);
 }
 
-export function formatCoefficient(x, parameters = {showPlus: false, showOne: true, showZero: true, suffix: ''}) {
+export function formatCoefficient(x, parameters = { showPlus: false, showOne: true, showZero: true, suffix: '' }) {
   if (!parameters.showZero && x == 0) { return ''; }
   const plus = parameters.showPlus ? '+' : '';
   const sign = x < 0 ? '-' : plus;
@@ -28,6 +28,19 @@ export function formatCoefficient(x, parameters = {showPlus: false, showOne: tru
   parameters.showOne || x == 1 && (x = '');
   parameters.suffix || (parameters.suffix = '') // if suffix undefined
   return sign + x + parameters.suffix;
+}
+
+export function simplifyFraction(num, denom) {
+  const hcf = getHCF(num, denom);
+  return [num / hcf, denom / hcf];
+}
+
+export function formatFraction(num, denom, parameters = { showPlus: false, simplify: false }) {
+  const plus = parameters.showPlus ? '+' : '';
+  const sign = num / denom < 0 ? '-' : plus;
+  [num, denom] = parameters.simplify ? [num, denom] : simplifyFraction(num, denom)
+  if (denom == 1) { return `${sign}${Math.abs(num)}`; }
+  return `${sign}frac(${num}, ${denom})`
 }
 
 export function getSymmetricBounds(midX, viewBox) {

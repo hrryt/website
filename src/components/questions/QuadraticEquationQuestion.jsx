@@ -1,22 +1,11 @@
 import Question from '../Question.jsx';
-import { getRandomInt, getRandomBoolean, getRandomChoice, formatCoefficient, getHCF } from '../../scripts/utils.js';
+import { getRandomInt, getRandomBoolean, getRandomChoice, formatCoefficient, getHCF, formatFraction } from '../../scripts/utils.js';
 
 function formatQuadraticExpression(a, b, c) {
   const fa = formatCoefficient(a, { showPlus: false, showOne: false, showZero: false, suffix: 'x^2' });
   const fb = formatCoefficient(b, { showPlus: true, showOne: false, showZero: false, suffix: 'x' });
   const fc = formatCoefficient(c, { showPlus: true, showOne: true, showZero: false });
   return `${fa} ${fb} ${fc}`;
-}
-
-function formatFraction(num, denom) {
-  const hcf = getHCF(Math.abs(num), Math.abs(denom))
-  const prefix = num / denom > 0 ? "" : "-"
-
-  num = Math.abs(num / hcf)
-  denom = Math.abs(denom / hcf)
-
-  if (denom == 1) { return `${prefix}${num}`; }
-  return `${prefix}frac(${num}, ${denom})`
 }
 
 function formatRoots(l, m, n, o) {

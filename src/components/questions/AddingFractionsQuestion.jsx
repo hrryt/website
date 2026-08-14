@@ -1,15 +1,5 @@
 import Question from '../Question.jsx';
-import { getRandomInt, getHCF } from '../../scripts/utils.js';
-
-function formatFraction(num, denom) {
-  if (denom == 1) { return `${num}`; }
-  return num + '/' + denom;
-}
-
-function simplifyFraction(num, denom) {
-  const hcf = getHCF(num, denom);
-  return [num / hcf, denom / hcf];
-}
+import { getRandomInt, getHCF, formatFraction, simplifyFraction } from '../../scripts/utils.js';
 
 function getRandomFraction(seed) {
   const num0 = getRandomInt(1, 5, seed++);
