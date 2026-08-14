@@ -23,9 +23,8 @@ export default function AddingFractionsQuestion({ seed, showAnswer }) {
   const hcf = getHCF(denom1, denom2);
   const sum = (num1 * denom2 + num2 * denom1) / hcf;
   const lcm = denom1 * denom2 / hcf;
-  const [num, denom] = simplifyFraction(sum, lcm);
 
-  const answer = formatFraction(num, denom);
+  const answer = formatFraction(sum, lcm, {showOne: true, showZero: true, simplify: true});
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />;
 }

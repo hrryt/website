@@ -42,12 +42,12 @@ export function formatFraction(num, denom, parameters = { showPlus: false, showO
   const sign = num / denom < 0 ? '-' : plus;
 
   [num, denom] = [Math.abs(num), Math.abs(denom)]
-  [num, denom] = parameters.simplify ? [num, denom] : simplifyFraction(num, denom)
+  [num, denom] = parameters.simplify ? simplifyFraction(num, denom) : [num, denom]
   parameters.suffix || (parameters.suffix = '')
 
+  if (denom == 1) { return sign + Math.abs(num) + parameters.suffix; }
   let x = `frac(${num}, ${denom})`
   parameters.showOne || num / denom == 1 && (x = '');
-  if (denom == 1) { return sign + Math.abs(num) + parameters.suffix; }
   return sign + x + parameters.suffix
 }
 
