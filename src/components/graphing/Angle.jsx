@@ -17,11 +17,12 @@ function AngleLabel({ points, radius, colour, children }) {
   return <Label point={point} colour={colour}>{children}</Label>;
 }
 
-export default function Angle({ points, radius = 0.5, double = false, label = null, colour = "auto" }) {
+export default function Angle({ points, radius = 0.5, arcs = 1, label = null, colour = "auto" }) {
   return (
     <g>
-      <AngleArc points={points} radius={radius} colour={colour} />
-      {double && <AngleArc points={points} radius={1.2*radius} colour={colour} />}
+      {Array.from({ length: arcs }).map(
+        (_, i) => <AngleArc points={points} radius={(1 + .2*i) * radius} colour={colour} />
+      )}
       {label && <AngleLabel points={points} radius={radius} colour={colour}>{label}</AngleLabel>}
     </g>
   );
