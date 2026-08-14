@@ -3,6 +3,8 @@ import Plot from "../plotting/Plot";
 import Line from "../plotting/Line";
 import Polygon from "../plotting/Polygon";
 import Question from "../Question";
+import Point from "../plotting/Point";
+import Equation from "../Equation";
 
 function shapeToString(shape) {
   return shape.map((point) => point.join(",")).join(" ")
@@ -20,7 +22,7 @@ function findIntersect(line1, line2) {
   if (k == 0) {
     return null
   }
-  return [(line1.c*line2.b - line2.c*line1.b) / k, (line1.a*line2.c - line2.a*line1.c) / k]
+  return [(line2.c*line1.b - line1.c*line2.b) / k, (line2.a*line1.c - line1.a*line2.c) / k]
 }
 
 function randomLine(seed, lineType, excludedLine = {a: 100, b: 100, c: 100}) {
@@ -57,7 +59,10 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   
   const question = (<>
     <p>
-      Reflect in {formatLine(line1)} then {formatLine(line2)}. What single transformation describes this?
+      Reflect P in <Equation equation={formatLine(line1)} /> then <Equation equation={formatLine(line2)} />.
+    </p>
+    <p>  
+      What single transformation describes this?
     </p>
     <Plot viewBox={viewBox} width="300" height="300">
       <Polygon points={originalShape} label="P" colour="1" />
@@ -66,11 +71,27 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
     </Plot>
   </>)
 
+  const midShape = originalShape.map((point) => reflectPoint(point, line1))
+  const endShape = midShape.map((point) => reflectPoint(point, line2))
+
   const intersect = findIntersect(line1, line2)
-  let answer = ""
+  let answer = <></>
   if (intersect === null) { // translation
 
   } else { // rotation 180
+    answer = (<>
+      <p>
+        Rotation <Equation equation="180degree" /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} />
+      </p>
+      <Plot viewBox={viewBox} width="300" height="300">
+        <Polygon points={originalShape} label="P" colour="1" />
+        <Polygon points={midShape} label="Q" colour="2" />
+        <Polygon points={endShape} label="R" colour="3" />
+        <Line line={line1} colour="2" viewBox={viewBox} />
+        <Line line={line2} colour="3" viewBox={viewBox} />
+        <Point point={intersect}></Point>
+      </Plot>
+    </>)
   }
 
 

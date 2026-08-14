@@ -54,9 +54,9 @@ export function formatFraction(num, denom, parameters = { showPlus: false, showO
 }
 
 export function formatLine(line) {
-  if (line.b == 0) { return `x = ${formatFraction(line.c, line.a, { showPlus: false, showOne: true, showZero: true, simplify: true })}`; }
+  if (line.b == 0) { return `x = ${formatFraction(-line.c, line.a, { showPlus: false, showOne: true, showZero: true, simplify: true })}`; }
   let mxTerm = formatFraction(-line.a, line.b, { showPlus: false, showOne: false, showZero: false, simplify: true, suffix: 'x' })
-  const cTerm = formatFraction(line.c, line.b, { showPlus: false, showOne: true, showZero: false, simplify: true })
+  const cTerm = formatFraction(-line.c, line.b, { showPlus: false, showOne: true, showZero: false, simplify: true })
   if (!mxTerm && !cTerm) {
     mxTerm = '0'
   }

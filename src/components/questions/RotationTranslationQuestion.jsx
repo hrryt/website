@@ -61,9 +61,9 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
     <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />
-      <Polygon points={     midShape} label="R" colour="3" />
-      <Polygon points={     endShape} label="S" colour="4" />
-      <Point   point={         axis2} />
+      <Polygon points={     midShape} label="R" colour="2" />
+      <Polygon points={     endShape} label="S" colour="3" />
+      <Point   point={         axis2} colour="3" />
     </Plot>
   </>)
 

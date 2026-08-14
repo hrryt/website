@@ -5,8 +5,8 @@ export default function Line({ line, viewBox, label=null, colour='auto' }) {
   const maxX = minX + width
   const maxY = minY + height
 
-  const xPairs = [minX, maxX].map((x) => [x, (line.c - line.a*x)/line.b])
-  const yPairs = [minY, maxY].map((y) => [(line.c - line.b*y)/line.a, y])
+  const xPairs = [minX, maxX].map((x) => [x, (-line.c - line.a*x)/line.b])
+  const yPairs = [minY, maxY].map((y) => [(-line.c - line.b*y)/line.a, y])
 
   // important to do this for straight (y = c or x = c) lines.
   let points = []
