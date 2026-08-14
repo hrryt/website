@@ -1,4 +1,5 @@
-import { ScaleFactorContext } from '../../scripts/contexts.js';
+import { useContext } from 'preact/hooks';
+import { StrokeWidthContext } from '../../scripts/contexts.js';
 import Label from './Label.jsx';
 
 function Grid({ viewBox }) {
@@ -9,49 +10,58 @@ function Grid({ viewBox }) {
 
 function Axes({ viewBox }) {
   const [ minX, minY, width, height ] = viewBox;
+  const arrowheadHeight = 4 * useContext(StrokeWidthContext);
   return (
     <g>
-      <path class="axis" d={`M ${minX},0 h ${width-.1}`} marker-end="url(#arrow)"/>
-      <path class="axis" d={`M 0,${minY} v ${height-.1}`} marker-end="url(#arrow)"/>
+      <path class="axis" d={`M ${minX},0 h ${ width - arrowheadHeight}`} marker-end="url(#arrowhead)"/>
+      <path class="axis" d={`M 0,${minY} v ${height - arrowheadHeight}`} marker-end="url(#arrowhead)"/>
     </g>
   );
 }
 
-function AxisTicks({ every = 1, viewBox }) {
+function AxisTicks({ viewBox }) {
+  const every = Math.floor(20 * useContext(StrokeWidthContext));
   const [ minX, minY, width, height ] = viewBox;
   return (
     <g>
       <g>
-        {Array.from({ length: width - 1 }).map((_, i) => {
-          const x = i + minX + 1;
-          if (x == 0 || x % every) { return; }
-          return <Label point={[x, 0]} position="bottom">{x}</Label>;
-        })}
+        <g>
+          {Array.from({ length: width - 1 }).map((_, i) => {
+            const x = i + minX + 1;
+            if (x == 0 || x % every) { return; }
+            return <Label point={[x, 0]} position="bottom">{x}</Label>;
+          })}
+        </g>
+        <g>
+          {Array.from({ length: height - 1 }).map((_, i) => {
+            const y = i + minY + 1;
+            if (y == 0 || y % every) { return; }
+            return <Label point={[0, y]} position="left">{y}</Label>;
+          })}
+        </g>
+        <Label point={[0, 0]} position="bottom-left">0</Label>
       </g>
       <g>
-        {Array.from({ length: height - 1 }).map((_, i) => {
-          const y = i + minY + 1;
-          if (y == 0 || y % every) { return; }
-          return <Label point={[0, y]} position="left">{y}</Label>;
-        })}
+        <Label weight="bold" point={[minX +  width, 0]} position="bottom-left" spacing={3}>x</Label>
+        <Label weight="bold" point={[0, minY + height]} position="bottom-left" spacing={3}>y</Label>
       </g>
-      <Label point={[0, 0]} position="bottom-left">0</Label>
     </g>
   )
 }
 
 export default function Graph({ children, viewBox, width="300", height="300" }) {
   const scaleFactor = Math.max(viewBox[2] / width, viewBox[3] / height);
+  const strokeWidth = 2.5 * scaleFactor;
   const style = `
     text {
       font-size: ${scaleFactor}em;
-      stroke-width: ${4 * scaleFactor};
+      stroke-width: ${1.6 * strokeWidth};
     }
     path,polygon,line,polyline,circle,ellipse {
-      stroke-width: ${2.5 * scaleFactor};
+      stroke-width: ${strokeWidth};
     }
     path#grid {
-      stroke-width: ${0.5 * scaleFactor};
+      stroke-width: ${0.2 * strokeWidth};
     }
   `;
   return (
@@ -61,9 +71,9 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
     >
       <defs>
         <marker
-          id='arrow'
+          id='arrowhead'
           viewBox="0 0 4 4"
-          refX="3" refY="2"
+          refX="0" refY="2"
           markerWidth="4" markerHeight="4"
           orient="auto"
         >
@@ -120,12 +130,12 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
           {style}
         </style>
       </defs>
-      <ScaleFactorContext value={scaleFactor}>
+      <StrokeWidthContext value={strokeWidth}>
         <Grid viewBox={viewBox} />
         <Axes viewBox={viewBox} />
-        <AxisTicks every={Math.floor(50 * scaleFactor)} viewBox={viewBox} />
+        <AxisTicks viewBox={viewBox} />
         {children}
-      </ScaleFactorContext>
+      </StrokeWidthContext>
     </svg>
   );
 }
