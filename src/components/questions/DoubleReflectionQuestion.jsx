@@ -1,7 +1,7 @@
 import { formatLine, getRandomChoice, getRandomInt } from "../../scripts/utils";
-import Graph from "../graphing/Graph";
-import Line from "../graphing/Line";
-import Polygon from "../graphing/Polygon";
+import Plot from "../plotting/Plot";
+import Line from "../plotting/Line";
+import Polygon from "../plotting/Polygon";
 import Question from "../Question";
 
 function shapeToString(shape) {
@@ -59,11 +59,11 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
     <p>
       Reflect in {formatLine(line1)} then {formatLine(line2)}. What single transformation describes this?
     </p>
-    <Graph viewBox={viewBox} width="300" height="300">
+    <Plot viewBox={viewBox} width="300" height="300">
       <Polygon points={originalShape} label="P" colour="1" />
       <Line line={line1} colour="2" viewBox={viewBox} />
       <Line line={line2} colour="3" viewBox={viewBox} />
-    </Graph>
+    </Plot>
   </>)
 
   const intersect = findIntersect(line1, line2)

@@ -1,7 +1,7 @@
 import { getRandomChoice, getRandomInt } from "../../scripts/utils";
-import Point from "../graphing/Point";
-import Polygon from "../graphing/Polygon";
-import Graph from "../graphing/Graph";
+import Point from "../plotting/Point";
+import Polygon from "../plotting/Polygon";
+import Plot from "../plotting/Plot";
 import Question from "../Question";
 import Equation from "../Equation";
 
@@ -50,21 +50,21 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
     <p>Shape P is rotated {angleExpression} about point Q to form shape R.</p>
     <p>Shape R is translated by <Equation equation={`vec(${translationVector[0]}, ${translationVector[1]})`} /> to form shape S.</p>
     <p>What single transformation maps shape P onto shape S?</p>
-    <Graph viewBox={viewBox}>
+    <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />
-    </Graph>
+    </Plot>
   </>)
 
   const answer = (<>
     <p>Rotation {angleExpression} about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
-    <Graph viewBox={viewBox}>
+    <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />
       <Polygon points={     midShape} label="R" colour="3" />
       <Polygon points={     endShape} label="S" colour="4" />
       <Point   point={         axis2} />
-    </Graph>
+    </Plot>
   </>)
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />
