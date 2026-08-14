@@ -1,4 +1,4 @@
-import { getRandomChoice, getRandomInt } from "../../scripts/utils";
+import { formatLine, getRandomChoice, getRandomInt } from "../../scripts/utils";
 import Graph from "../graphing/Graph";
 import Line from "../graphing/Line";
 import Polygon from "../graphing/Polygon";
@@ -57,7 +57,7 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   
   const question = (<>
     <p>
-      Reflect in line 1, then line 2. What single transformation describes this?
+      Reflect in {formatLine(line1)} then {formatLine(line2)}. What single transformation describes this?
     </p>
     <Graph viewBox={viewBox} width="300" height="300">
       <Polygon points={originalShape} label="P" colour="1" />

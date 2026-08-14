@@ -35,12 +35,27 @@ export function simplifyFraction(num, denom) {
   return [num / hcf, denom / hcf];
 }
 
-export function formatFraction(num, denom, parameters = { showPlus: false, simplify: false }) {
+// this thing is probably begging for bugs from simplification and zeroes.
+export function formatFraction(num, denom, parameters = { showPlus: false, showOne: true, showZero: false, simplify: false, suffix: '' }) {
+  if (!parameters.showZero && num == 0) { return ''; }
   const plus = parameters.showPlus ? '+' : '';
   const sign = num / denom < 0 ? '-' : plus;
+
+  [num, denom] = [Math.abs(num), Math.abs(denom)]
   [num, denom] = parameters.simplify ? [num, denom] : simplifyFraction(num, denom)
-  if (denom == 1) { return `${sign}${Math.abs(num)}`; }
-  return `${sign}frac(${num}, ${denom})`
+  parameters.suffix || (parameters.suffix = '')
+
+  let x = `frac(${num}, ${denom})`
+  parameters.showOne || num / denom == 1 && (x = '');
+  if (denom == 1) { return sign + Math.abs(num) + parameters.suffix; }
+  return sign + x + parameters.suffix
+}
+
+export function formatLine(line) {
+  if (line.b == 0) { return `x = ${formatFraction(line.c, line.a, { simplify: true })}` }
+  const mxTerm = formatFraction(-line.a, line.b, { simplify: true, suffix: 'x' })
+  const cTerm = formatFraction(line.c, line.b, { showOne: true, simplify: true })
+  return 'y = ' + mxTerm + cTerm
 }
 
 export function getSymmetricBounds(midX, viewBox) {
