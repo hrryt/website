@@ -18,11 +18,11 @@ export default function Home() {
           <Graph viewBox={viewBox}>
             <Quadratic a={2} b={1} c={-3} colour="1" viewBox={viewBox} />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
-            <Angle points={[[-4,3], [1,2], [-1,1]]} arcs={3} colour="2" />
+            <Angle points={[[-4,3], [1,2], [-1,1]]} arcs={2} colour="2" />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox} />
             <Line line={{a: -10, b: -9, c: -1}} colour="5" viewBox={viewBox} />
             <Segment points={[[0,1], [2,2]]} marker="double-feather" />
-            <Point point={[0,1]} label="Q" colour="1" />
+            <Point point={[0,1]} label="Q" colour="4" />
           </Graph>
         </div>
       </Window>

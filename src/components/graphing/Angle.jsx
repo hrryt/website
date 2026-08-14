@@ -1,4 +1,6 @@
 import Label from './Label.jsx';
+import { useContext } from 'preact/hooks';
+import { ScaleFactorContext } from '../../scripts/contexts.js';
 import { getColourClass, getMidpoint, interpolateDistance } from '../../scripts/utils.js';
 
 function getArc(points, radius) {
@@ -18,10 +20,11 @@ function AngleLabel({ points, radius, colour, children }) {
 }
 
 export default function Angle({ points, radius = 0.5, arcs = 1, label = null, colour = "auto" }) {
+  const concentricGap = 7 * useContext(ScaleFactorContext);
   return (
     <g>
       {Array.from({ length: arcs }).map(
-        (_, i) => <AngleArc points={points} radius={(1 + .2*i) * radius} colour={colour} />
+        (_, i) => <AngleArc points={points} radius={(1 + i*concentricGap) * radius} colour={colour} />
       )}
       {label && <AngleLabel points={points} radius={radius} colour={colour}>{label}</AngleLabel>}
     </g>
