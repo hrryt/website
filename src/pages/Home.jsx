@@ -5,6 +5,7 @@ import Cubic from '../components/graphing/Cubic.jsx';
 import Polygon from '../components/graphing/Polygon.jsx';
 import Angle from '../components/graphing/Angle.jsx';
 import Segment from '../components/graphing/Segment.jsx';
+import Line from '../components/graphing/Line.jsx';
 
 export default function Home() {
   const viewBox = [-5, -4, 8, 8];
@@ -19,6 +20,7 @@ export default function Home() {
             <Angle points={[[-4,3], [1,2], [-1,1]]} double={true} colour="2" />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox} />
             <Segment points={[[0,1], [2,2]]} marker="hash" colour="4" />
+            <Line line={{a: -10, b: -9, c: -1}} colour="5" viewBox={viewBox} />
           </Graph>
         </div>
       </Window>
