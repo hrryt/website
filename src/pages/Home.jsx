@@ -7,9 +7,11 @@ import Angle from '../components/graphing/Angle.jsx';
 import Segment from '../components/graphing/Segment.jsx';
 import Line from '../components/graphing/Line.jsx';
 import Point from '../components/graphing/Point.jsx';
+import Label from '../components/graphing/Label.jsx';
 
 export default function Home() {
   const viewBox = [-5, -4, 8, 8];
+  const [A, B, C] = [[1,4], [3,2], [2,1]];
   return (
     <main>
       <Window title="Home">
@@ -18,11 +20,20 @@ export default function Home() {
           <Graph viewBox={viewBox}>
             <Quadratic a={2} b={1} c={-3} colour="1" viewBox={viewBox} />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
-            <Angle points={[[-4,3], [1,2], [-1,1]]} arcs={2} colour="2" />
             <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox} />
-            <Line line={{a: -10, b: -9, c: -1}} colour="5" viewBox={viewBox} />
-            <Segment points={[[0,1], [2,2]]} marker="double-feather" />
-            <Point point={[0,1]} label="Q" colour="4" />
+            <Line line={{a: -10, b: -9, c: -1}} colour="4" viewBox={viewBox} />
+            <Point point={[0,1]} label="Q" colour="5" />
+          </Graph>
+          <Graph mode="blank" viewBox={[0, 0, 5, 5]}>
+            <Label point={A} position="top">A</Label>
+            <Label point={B} position="right">B</Label>
+            <Label point={C} position="bottom">C</Label>
+            <Segment points={[A, B]} marker="hash" />
+            <Segment points={[C, B]} marker="double-feather" />
+            <Segment points={[A, C]} />
+            <Angle points={[A, B, C]} right={true} />
+            <Angle points={[B, C, A]} />
+            <Angle points={[C, A, B]} />
           </Graph>
         </div>
       </Window>

@@ -1,12 +1,18 @@
 import Label from './Label.jsx';
 import { useContext } from 'preact/hooks';
 import { StrokeWidthContext } from '../../scripts/contexts.js';
-import { getColourClass, getMidpoint, interpolateDistance } from '../../scripts/utils.js';
+import { getColourClass, getMidpoint, interpolateDistance, sumVectors, getVector } from '../../scripts/utils.js';
 
 function getArc(points, radius) {
   const start = interpolateDistance(points[1], points[0], radius);
   const end = interpolateDistance(points[1], points[2], radius);
   return [start, end];
+}
+
+function RightAngle({ points, radius, colour }) {
+  const [start, end] = getArc(points, radius);
+  const midpoint = sumVectors(start, getVector(points[1], end));
+  return <polygon points={[points[1], start, midpoint, end]} class={getColourClass(colour)} />
 }
 
 function AngleArc({ points, radius, colour }) {
@@ -19,12 +25,16 @@ function AngleLabel({ points, radius, colour, children }) {
   return <Label point={point} colour={colour}>{children}</Label>;
 }
 
-export default function Angle({ points, radius = 0.5, arcs = 1, label = null, colour = "auto" }) {
-  const concentricGap = 3 * useContext(StrokeWidthContext);
+export default function Angle({ points, right = false, arcs = 1, label = null, colour = "auto" }) {
+  const strokeWidth = useContext(StrokeWidthContext);
+  const radius = 10 * strokeWidth;
+  const concentricGap = 1.5 * strokeWidth;
   return (
     <g>
-      {Array.from({ length: arcs }).map(
-        (_, i) => <AngleArc points={points} radius={(1 + i*concentricGap) * radius} colour={colour} />
+      {right ? (
+                <RightAngle points={points} radius={0.8 * radius} colour={colour} />
+      ) : Array.from({ length: arcs }).map(
+        (_, i) => <AngleArc points={points} radius={(radius + i*concentricGap)} colour={colour} />
       )}
       {label && <AngleLabel points={points} radius={radius} colour={colour}>{label}</AngleLabel>}
     </g>

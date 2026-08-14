@@ -49,19 +49,23 @@ function AxisTicks({ viewBox }) {
   )
 }
 
-export default function Graph({ children, viewBox, width="300", height="300" }) {
+export default function Plot({ children, mode="graph", viewBox, width="300", height="300" }) {
+  const id = `graph-${Math.floor(1000 * Math.random())}`;
   const scaleFactor = Math.max(viewBox[2] / width, viewBox[3] / height);
   const strokeWidth = 2.5 * scaleFactor;
   const style = `
-    text {
+    g#${id} text {
       font-size: ${scaleFactor}em;
-      stroke-width: ${1.6 * strokeWidth};
+      stroke-width: ${mode === "graph" ? 1.6 * strokeWidth : 0};
     }
-    path,polygon,line,polyline,circle,ellipse {
+    g#${id} :is(path,polygon,line,polyline,rect,circle,ellipse) {
       stroke-width: ${strokeWidth};
     }
-    path#grid {
+    g#${id} path#grid {
       stroke-width: ${0.2 * strokeWidth};
+    }
+    g#${id} polygon {
+      fill-opacity: ${mode === "graph" ? 0.5 : 0};
     }
   `;
   return (
@@ -70,71 +74,79 @@ export default function Graph({ children, viewBox, width="300", height="300" }) 
       transform="scale(1 -1)" xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <marker
-          id='arrowhead'
-          viewBox="0 0 4 4"
-          refX="0" refY="2"
-          markerWidth="4" markerHeight="4"
-          orient="auto"
-        >
-          <polygon class='marker' points="0,0 4,2 0,4" />
-        </marker>
-        <marker
-          id="cross"
-          viewBox="0 0 6 6"
-          refX="3" refY="3"
-          markerWidth="6" markerHeight="6"
-        >
-          <line class='marker' x1="1" y1="1" x2="5" y2="5" />
-          <line class='marker' x1="1" y1="5" x2="5" y2="1" />
-        </marker>
-        <marker
-          id="hash"
-          viewBox="0 0 2 6"
-          refX="1" refY="3"
-          markerWidth="2" markerHeight="6"
-          orient="auto"
-        >
-          <line class="marker" x1="1" y1="1" x2="1" y2="5" />
-        </marker>
-        <marker
-          id="double-hash"
-          viewBox="0 0 4 6"
-          refX="2" refY="3"
-          markerWidth="4" markerHeight="6"
-          orient="auto"
-        >
-          <line class="marker" x1="1" y1="1" x2="1" y2="5" />
-          <line class="marker" x1="3" y1="1" x2="3" y2="5" />
-        </marker>
-        <marker
-          id="feather"
-          viewBox="0 0 6 6"
-          refX="5" refY="3"
-          markerWidth="6" markerHeight="6"
-          orient="auto"
-        >
-          <polyline class="marker" points="2,1 5,3 2,5" />
-        </marker>
-        <marker
-          id="double-feather"
-          viewBox="0 0 9 6"
-          refX="5" refY="3"
-          markerWidth="9" markerHeight="6"
-          orient="auto"
-        >
-          <polyline class="marker" points="2,1 5,3 2,5" />
-          <polyline class="marker" points="5,1 8,3 5,5" />
-        </marker>
+        <g>
+          <marker
+            id='arrowhead'
+            viewBox="0 0 4 4"
+            refX="0" refY="2"
+            markerWidth="4" markerHeight="4"
+            orient="auto"
+          >
+            <polygon class='marker' points="0,0 4,2 0,4" />
+          </marker>
+          <marker
+            id="cross"
+            viewBox="0 0 6 6"
+            refX="3" refY="3"
+            markerWidth="6" markerHeight="6"
+          >
+            <line class='marker' x1="1" y1="1" x2="5" y2="5" />
+            <line class='marker' x1="1" y1="5" x2="5" y2="1" />
+          </marker>
+          <marker
+            id="hash"
+            viewBox="0 0 2 6"
+            refX="1" refY="3"
+            markerWidth="2" markerHeight="6"
+            orient="auto"
+          >
+            <line class="marker" x1="1" y1="1" x2="1" y2="5" />
+          </marker>
+          <marker
+            id="double-hash"
+            viewBox="0 0 4 6"
+            refX="2" refY="3"
+            markerWidth="4" markerHeight="6"
+            orient="auto"
+          >
+            <line class="marker" x1="1" y1="1" x2="1" y2="5" />
+            <line class="marker" x1="3" y1="1" x2="3" y2="5" />
+          </marker>
+          <marker
+            id="feather"
+            viewBox="0 0 6 6"
+            refX="5" refY="3"
+            markerWidth="6" markerHeight="6"
+            orient="auto"
+          >
+            <polyline class="marker" points="2,1 5,3 2,5" />
+          </marker>
+          <marker
+            id="double-feather"
+            viewBox="0 0 9 6"
+            refX="5" refY="3"
+            markerWidth="9" markerHeight="6"
+            orient="auto"
+          >
+            <polyline class="marker" points="2,1 5,3 2,5" />
+            <polyline class="marker" points="5,1 8,3 5,5" />
+          </marker>
+        </g>
         <style>
           {style}
         </style>
       </defs>
       <StrokeWidthContext value={strokeWidth}>
-        <Grid viewBox={viewBox} />
-        <Axes viewBox={viewBox} />
-        <AxisTicks viewBox={viewBox} />
-        {children}
+        <g id={id}>
+          {mode === "graph" && (
+            <g>
+              <Grid viewBox={viewBox} />
+              <Axes viewBox={viewBox} />
+              <AxisTicks viewBox={viewBox} />
+            </g>
+          )}
+          {children}
+        </g>
       </StrokeWidthContext>
     </svg>
   );

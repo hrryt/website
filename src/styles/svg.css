@@ -1,4 +1,4 @@
-path,polygon,line,polyline,circle,ellipse {
+path,polygon,line,polyline,rect,circle,ellipse {
   stroke-linejoin: round;
   stroke-linecap: round;
   fill-opacity: 0;
@@ -6,7 +6,6 @@ path,polygon,line,polyline,circle,ellipse {
 }
 
 polygon {
-  fill-opacity: 0.5;
   stroke: black;
   fill: black;
 }
