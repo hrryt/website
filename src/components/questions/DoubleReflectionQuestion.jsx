@@ -90,8 +90,8 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
 
   const intersect = findIntersect(line1, line2)
   let answer = <></>
-  if (intersect === null) { // translation
-
+  if (intersect === null) { // translation, lines parallel
+    
   } else { // rotation 180
     const angle = 2*(getLineAngle(line2) - getLineAngle(line1))
     answer = (<>

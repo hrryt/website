@@ -1,5 +1,3 @@
-import Equation from "../components/Equation";
-
 export function getRandomInt(min, max, seed) {
   return min + Math.floor((max - min + 1) * getRandomNumber(seed));
 }
@@ -107,4 +105,9 @@ export function interpolateDistance(start, end, distance) {
 
 export function getMidpoint(points) {
   return interpolate(points[0], points[1], 0.5);
+}
+
+export function trueMod(a, b) {
+  // a mod b, but with expected behaviour for negatives.
+  return a >= 0 ? a % b : b - (-a % b) 
 }

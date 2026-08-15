@@ -1,8 +1,9 @@
+import { trueMod } from "../scripts/utils"
 import Equation from "./Equation"
 
 export default function RotationTextElement({ angle }) {
 
-  angle = angle > 0 ? angle % (2*Math.PI) : 2*Math.PI - (-angle % (2*Math.PI)) // range 0 to 2pi, actual modulus lol
+  angle = trueMod(angle, 2*Math.PI)
   angle = Math.round(angle * 180 / Math.PI) // range 0 to 360
   let directionText = ""
   if (Math.abs(angle) == 180) { directionText = "" }
