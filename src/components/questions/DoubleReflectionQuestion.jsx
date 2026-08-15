@@ -43,10 +43,10 @@ function randomLine(seed, lineType, excludedLine = {a: 100, b: 100, c: 100}) {
   let f = (seed) => {return {a: 0, b: 1, c: 1}}
   switch (lineType) {
     case 'horizontal':
-      f = (seed) => {return {a: 0, b: 1, c: getRandomInt(-3, 3, seed)}}
+      f = (seed) => {return {a: 0, b: 1, c: getRandomInt(-2, 2, seed)}}
       break
     case 'vertical':
-      f = (seed) => {return {a: 1, b: 0, c: getRandomInt(-3, 3, seed)}}
+      f = (seed) => {return {a: 1, b: 0, c: getRandomInt(-2, 2, seed)}}
       break
     case 'diagonal':
       f = (seed) => {return {a: 1, b: getRandomChoice([-1, 1], seed), c: 0}}
@@ -89,26 +89,29 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   const endShape = midShape.map((point) => reflectPoint(point, line2))
 
   const intersect = findIntersect(line1, line2)
-  let answer = <></>
+  let answerTextElement = <></>
+  let answerGraphElement = <></>
   if (intersect === null) { // translation, lines parallel
-    
-  } else { // rotation 180
+    const xTrans = 2*(line1.c*line1.a - line2.c*line2.a)
+    const yTrans = 2*(line1.c*line1.b - line2.c*line2.b)
+    answerTextElement = <p>Translation by vector <Equation equation={`vec(${xTrans}, ${yTrans})`} /></p>
+  } else { // rotation
     const angle = 2*(getLineAngle(line2) - getLineAngle(line1))
-    answer = (<>
-      <p>
-        Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} />
-      </p>
-      <Plot viewBox={viewBox} width="300" height="300">
-        <Polygon points={originalShape} label="P" colour="1" />
-        <Polygon points={midShape} label="Q" colour="2" />
-        <Polygon points={endShape} label="R" colour="3" />
-        <Line line={line1} colour="2" viewBox={viewBox} />
-        <Line line={line2} colour="3" viewBox={viewBox} />
-        <Point point={intersect}></Point>
-      </Plot>
-    </>)
+    answerTextElement = <p>Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} /></p>
+    answerGraphElement = <Point point={intersect} />
   }
-
+  const answer = (<>
+    {answerTextElement}
+    <Plot viewBox={viewBox} width="300" height="300">
+      <Polygon points={originalShape} label="P" colour="1" />
+      <Polygon points={midShape} label="Q" colour="2" />
+      <Polygon points={endShape} label="R" colour="3" />
+      <Line line={line1} colour="2" viewBox={viewBox} />
+      <Line line={line2} colour="3" viewBox={viewBox} />
+      {answerGraphElement}
+    </Plot>
+  </>)
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />
 }
+
