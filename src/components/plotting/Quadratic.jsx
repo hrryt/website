@@ -1,14 +1,21 @@
-import { getSymmetricBounds, getColourClass } from '../../scripts/utils.js';
+import { getColourClass, getSymmetricBounds } from '../../scripts/utils.js';
 
 export default function Quadratic({ a=1, b=0, c=0, colour="auto", viewBox }) {
-  function f(x) { return a*x*x + b*x + c; }
+  function F(x) { return a*x*x + b*x + c; }
 
-  const turnX = -b / (2*a);
-  const [startX, endX] = getSymmetricBounds(turnX, viewBox);
+  const midX = -b / (2*a);
 
-  const endY = f(endX);
-  const controlY = 2*f(turnX) - endY;
+  const [minX, minY, width, height] = viewBox;
+  const maxY = minY + height;
+  const midY = F(midX);
+  const curveHeight = a < 0 ? midY - minY : maxY - midY;
+  const dx = Math.sqrt(curveHeight / Math.abs(a));
 
-  const d = `M ${startX},${endY} Q ${turnX},${controlY} ${endX},${endY}`;
+  const [i, f] = getSymmetricBounds(midX, dx, viewBox);
+
+  const y0 = F(i);
+  const y1 = 2*midY - y0;
+
+  const d = `M ${i},${y0} Q ${midX},${y1} ${f},${y0}`;
   return <path d={d} class={getColourClass(colour)} />;
 }

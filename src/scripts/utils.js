@@ -63,12 +63,6 @@ export function formatLine(line) {
   return 'y = ' + mxTerm + cTerm
 }
 
-export function getSymmetricBounds(midX, viewBox) {
-  const [ minX, minY, width, height ] = viewBox;
-  const halfWidth = Math.max(midX - minX, minX + width - midX);
-  return [midX - halfWidth, midX + halfWidth];
-}
-
 export function getColourClass(colour) {
   if (colour == 'auto') { return ''; }
   return `color-${colour}`;
@@ -110,4 +104,13 @@ export function getMidpoint(points) {
 export function trueMod(a, b) {
   // a mod b, but with expected behaviour for negatives.
   return a >= 0 ? a % b : b - ((-a % b) || b);
+}
+
+export function getSymmetricBounds(midX, dx, viewBox) {
+  const [minX, minY, width, height] = viewBox;
+  const maxX = minX + width;
+
+  const maxDx = Math.max(midX - minX, maxX - midX);
+  const dx0 = Math.min(maxDx, dx);
+  return [midX - dx0, midX + dx0];
 }

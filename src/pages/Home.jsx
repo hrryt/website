@@ -11,7 +11,7 @@ import Label from '../components/plotting/Label.jsx';
 import Sinusoid from '../components/plotting/Sinusoid.jsx';
 
 export default function Home() {
-  const viewBox = [-5, -4, 8, 8];
+  const viewBox = [-5, -4, 8, 9];
   const [A, B, C] = [[1,4], [3,2], [2,1]];
   return (
     <main>
@@ -19,9 +19,11 @@ export default function Home() {
         <p>Hello World!</p>
         <div class="field-border kern">
           <Plot viewBox={viewBox}>
-            <Quadratic a={2} b={1} c={-3} colour="1" viewBox={viewBox} />
+            <Quadratic a={-2} b={1} c={-3} colour="1" viewBox={viewBox} />
+            <Quadratic a={.04} b={.02} c={-.06} colour="1" viewBox={viewBox} />
+            <Quadratic a={-.0001} b={2} c={-3} colour="1" viewBox={viewBox} />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />
-            <Cubic a={1} b={-3} c={3} d={-1} colour="3" viewBox={viewBox} />
+            <Cubic a={2} b={1} c={-1} d={2} colour="3" viewBox={viewBox} />
             <Point point={[1,0]} label="Q" colour="3" />
             <Line line={{a: -10, b: -9, c: -1}} colour="4" viewBox={viewBox} />
             <Sinusoid period={5} amp={0.5} dx={-11} dy={-2} colour="5" viewBox={viewBox} />
