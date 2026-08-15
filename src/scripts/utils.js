@@ -109,5 +109,5 @@ export function getMidpoint(points) {
 
 export function trueMod(a, b) {
   // a mod b, but with expected behaviour for negatives.
-  return a >= 0 ? a % b : b - (-a % b) 
+  return a >= 0 ? a % b : b - ((-a % b) || b);
 }
