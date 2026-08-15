@@ -4,6 +4,7 @@ import Polygon from "../plotting/Polygon";
 import Plot from "../plotting/Plot";
 import Question from "../Question";
 import Equation from "../Equation";
+import RotationTextElement from "../RotationTextElement";
 
 function rotatePoint(point, angle, axis=[0, 0]) {
   const diff = [point[0] - axis[0], point[1] - axis[1]]
@@ -31,23 +32,8 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
 
   const endShape = midShape.map((point) => point.map((value, i) => value + translationVector[i]))
 
-  let angleDirection = ""
-  if (angleDegrees !== 180) {
-    if (angleDegrees < 0) {
-      angleDirection = "counterclockwise"
-    } else {
-      angleDirection = "clockwise"
-    }
-  }
-
-  const angleExpression = (
-    <span>
-      <Equation equation={`${Math.abs(angleDegrees)} degree`} /> {angleDirection}
-    </span>
-  )
-
   const question = (<>
-    <p>Shape P is rotated {angleExpression} about point Q to form shape R.</p>
+    <p>Shape P is rotated <RotationTextElement angle={angle} /> about point Q to form shape R.</p>
     <p>Shape R is translated by <Equation equation={`vec(${translationVector[0]}, ${translationVector[1]})`} /> to form shape S.</p>
     <p>What single transformation maps shape P onto shape S?</p>
     <Plot viewBox={viewBox}>
@@ -57,7 +43,7 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
   </>)
 
   const answer = (<>
-    <p>Rotation {angleExpression} about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
+    <p>Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
     <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />

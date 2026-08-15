@@ -5,6 +5,7 @@ import Polygon from "../plotting/Polygon";
 import Question from "../Question";
 import Point from "../plotting/Point";
 import Equation from "../Equation";
+import RotationTextElement from "../RotationTextElement";
 
 function shapeToString(shape) {
   return shape.map((point) => point.join(",")).join(" ")
@@ -14,6 +15,19 @@ function reflectPoint(point, line = {a: 1, b: 1, c: 0}) {
   const [px, py] = point
   const k = (line.a*px + line.b*py + line.c) / (line.a**2 + line.b**2)
   return [px - 2*line.a*k, py - 2*line.b*k]
+}
+
+function getLineAngle(line) {
+  // gradient is -b/a. need -arctan(b/a)
+  return -Math.atan(line.b/line.a)
+}
+
+function rotationText(angle) {
+  angle = ((angle + Math.PI) % 2*Math.PI) - Math.PI // range -pi to pi
+  angle = Math.round(angle * 180 / Math.PI)
+  if (angle == 0) { return '180degree' }
+  if (angle < 0) { return `${-angle}degree anticlockwise`}
+  return `${angle}degree clockwise`
 }
 
 function findIntersect(line1, line2) {
@@ -79,9 +93,10 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   if (intersect === null) { // translation
 
   } else { // rotation 180
+    const angle = 2*(getLineAngle(line2) - getLineAngle(line1))
     answer = (<>
       <p>
-        Rotation <Equation equation="180degree" /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} />
+        Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} />
       </p>
       <Plot viewBox={viewBox} width="300" height="300">
         <Polygon points={originalShape} label="P" colour="1" />
