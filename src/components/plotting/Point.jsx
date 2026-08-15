@@ -1,5 +1,5 @@
 import Label from './Label.jsx';
-import { getColourClass } from '../../scripts/utils.js';
+import { getColourClass } from '../../scripts/graphUtils.js';
 
 export default function Point({ point, label=null, colour="auto", position="top" }) {
   return (

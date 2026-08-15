@@ -1,5 +1,7 @@
+import { formatCoefficient, formatFraction } from '../../scripts/formatUtils.js';
+import { getHCF } from '../../scripts/mathsUtils.js';
+import { getRandomChoice, getRandomInt } from '../../scripts/randomUtils.js';
 import Question from '../Question.jsx';
-import { getRandomInt, getRandomBoolean, getRandomChoice, formatCoefficient, getHCF, formatFraction } from '../../scripts/utils.js';
 
 function formatQuadraticExpression(a, b, c) {
   const fa = formatCoefficient(a, { showPlus: false, showOne: false, showZero: false, suffix: 'x^2' });

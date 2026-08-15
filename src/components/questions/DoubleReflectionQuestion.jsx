@@ -1,4 +1,3 @@
-import { formatLine, getRandomChoice, getRandomInt } from "../../scripts/utils";
 import Plot from "../plotting/Plot";
 import Line from "../plotting/Line";
 import Polygon from "../plotting/Polygon";
@@ -6,10 +5,8 @@ import Question from "../Question";
 import Point from "../plotting/Point";
 import Equation from "../Equation";
 import RotationTextElement from "../RotationTextElement";
-
-function shapeToString(shape) {
-  return shape.map((point) => point.join(",")).join(" ")
-}
+import { getRandomChoice, getRandomInt } from "../../scripts/randomUtils";
+import { formatLine } from "../../scripts/formatUtils";
 
 function reflectPoint(point, line = {a: 1, b: 1, c: 0}) {
   const [px, py] = point
@@ -20,14 +17,6 @@ function reflectPoint(point, line = {a: 1, b: 1, c: 0}) {
 function getLineAngle(line) {
   // gradient is -b/a. need -arctan(b/a)
   return -Math.atan(line.b/line.a)
-}
-
-function rotationText(angle) {
-  angle = ((angle + Math.PI) % 2*Math.PI) - Math.PI // range -pi to pi
-  angle = Math.round(angle * 180 / Math.PI)
-  if (angle == 0) { return '180degree' }
-  if (angle < 0) { return `${-angle}degree anticlockwise`}
-  return `${angle}degree clockwise`
 }
 
 function findIntersect(line1, line2) {

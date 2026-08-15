@@ -1,7 +1,7 @@
 import Label from './Label.jsx';
 import { useContext } from 'preact/hooks';
 import { StrokeWidthContext } from '../../scripts/contexts.js';
-import { getColourClass, getMidpoint, interpolateDistance, sumVectors, getVector } from '../../scripts/utils.js';
+import { getColourClass, getMidpoint, interpolateDistance, sumVectors, getVector } from '../../scripts/graphUtils.js';
 
 function getArc(points, radius) {
   const start = interpolateDistance(points[1], points[0], radius);

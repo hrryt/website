@@ -1,5 +1,5 @@
+import { getColourClass } from '../../scripts/graphUtils.js';
 import Label from './Label.jsx';
-import { getColourClass } from '../../scripts/utils.js';
 
 function getMean(arr) {
   return arr.reduce((a, b) => a + b) / arr.length;

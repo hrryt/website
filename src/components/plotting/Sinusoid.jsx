@@ -1,5 +1,6 @@
+import { getColourClass } from '../../scripts/graphUtils.js';
+import { trueMod } from '../../scripts/mathsUtils.js';
 import Point from './Point.jsx';
-import { getColourClass, trueMod } from '../../scripts/utils.js';
 
 export default function Sinusoid({ period=1, amp=1, dx=0, dy=0, colour="auto", viewBox }) {
   const [minX, minY, width, height] = viewBox;

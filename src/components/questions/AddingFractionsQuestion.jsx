@@ -1,5 +1,7 @@
+import { formatFraction } from '../../scripts/formatUtils.js';
+import { simplifyFraction, getHCF } from '../../scripts/mathsUtils.js';
+import { getRandomInt } from '../../scripts/randomUtils.js';
 import Question from '../Question.jsx';
-import { getRandomInt, getHCF, formatFraction, simplifyFraction } from '../../scripts/utils.js';
 
 function getRandomFraction(seed) {
   const num0 = getRandomInt(1, 5, seed++);

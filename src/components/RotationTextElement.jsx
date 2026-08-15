@@ -1,4 +1,4 @@
-import { trueMod } from "../scripts/utils"
+import { trueMod } from "../scripts/mathsUtils"
 import Equation from "./Equation"
 
 export default function RotationTextElement({ angle }) {

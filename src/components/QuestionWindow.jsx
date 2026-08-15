@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import QuestionList from './QuestionList.jsx';
-import { getRandomInt, getRandomNumber, getRandomChoice } from '../scripts/utils.js';
 import Window from './Window.jsx';
+import { getRandomChoice, getRandomNumber } from '../scripts/randomUtils.js';
 
 const seedDiff = 100;
 

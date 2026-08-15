@@ -1,4 +1,4 @@
-import { getColourClass } from "../../scripts/utils"
+import { getColourClass } from "../../scripts/graphUtils"
 
 export default function Line({ line, viewBox, label=null, colour='auto' }) { 
   const [ minX, minY, width, height ] = viewBox

@@ -1,4 +1,4 @@
-import { getColourClass, getMidpoint } from '../../scripts/utils.js';
+import { getColourClass, getMidpoint } from "../../scripts/graphUtils";
 
 export default function Segment({ points, marker = null, colour = "auto" }) {
   if (!marker) {

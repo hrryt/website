@@ -1,4 +1,4 @@
-import { getColourClass, getSymmetricBounds } from '../../scripts/utils.js';
+import { getColourClass, getSymmetricBounds } from "../../scripts/graphUtils";
 
 export default function Quadratic({ a=1, b=0, c=0, colour="auto", viewBox }) {
   function F(x) { return a*x*x + b*x + c; }

@@ -1,4 +1,4 @@
-import { getColourClass, getSymmetricBounds } from '../../scripts/utils.js';
+import { getColourClass, getSymmetricBounds } from '../../scripts/graphUtils.js';
 
 function getDepressedCubicRoots(a, b, c, d) {
   // https://en.wikipedia.org/wiki/Cubic_equation#Depressed_cubic

@@ -1,10 +1,10 @@
-import { getRandomChoice, getRandomInt } from "../../scripts/utils";
 import Point from "../plotting/Point";
 import Polygon from "../plotting/Polygon";
 import Plot from "../plotting/Plot";
 import Question from "../Question";
 import Equation from "../Equation";
 import RotationTextElement from "../RotationTextElement";
+import { getRandomChoice, getRandomInt } from "../../scripts/randomUtils";
 
 function rotatePoint(point, angle, axis=[0, 0]) {
   const diff = [point[0] - axis[0], point[1] - axis[1]]

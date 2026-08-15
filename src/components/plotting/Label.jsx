@@ -1,6 +1,6 @@
 import { useContext } from 'preact/hooks';
 import { StrokeWidthContext } from '../../scripts/contexts.js';
-import { getColourClass } from '../../scripts/utils.js';
+import { getColourClass } from '../../scripts/graphUtils.js';
 
 function getPosition(position) {
   switch (position) {
