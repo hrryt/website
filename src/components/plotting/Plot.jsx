@@ -28,14 +28,14 @@ function AxisTicks() {
         <g>
           {Array.from({ length: p.width - 1 }).map((_, i) => {
             const x = i + p.minX + 1;
-            if (x == 0 || x % every) { return; }
+            if (x % every || x === 0) { return; }
             return <Label point={[x, 0]} position="bottom">{x}</Label>;
           })}
         </g>
         <g>
           {Array.from({ length: p.height - 1 }).map((_, i) => {
             const y = i + p.minY + 1;
-            if (y == 0 || y % every) { return; }
+            if (y % every || y === 0) { return; }
             return <Label point={[0, y]} position="left">{y}</Label>;
           })}
         </g>
@@ -50,7 +50,7 @@ function AxisTicks() {
 }
 
 export default function Plot({ children, mode="graph", viewBox, width="300", height="300" }) {
-  const id = `graph-${Math.floor(1000 * Math.random())}`;
+  const id = `plot-${Math.floor(10000 * Math.random())}`;
   const scaleFactor = Math.max(viewBox[2] / width, viewBox[3] / height);
   const p = {
            minX: viewBox[0],
@@ -60,7 +60,7 @@ export default function Plot({ children, mode="graph", viewBox, width="300", hei
            maxX: viewBox[0] + viewBox[2],
            maxY: viewBox[1] + viewBox[3],
     strokeWidth: 2.5 * scaleFactor,
-  }
+  };
   const style = `
     g#${id} text {
       font-size: ${scaleFactor}em;

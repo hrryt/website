@@ -84,7 +84,7 @@ export default function QuestionWindow({ data, title }) {
           Refresh Questions
         </button>
       </fieldset>
-      <div class="field-border question-field kern">
+      <div class="field-border">
         <ol class="master-question-list">
           {questions}
         </ol>

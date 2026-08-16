@@ -5,6 +5,7 @@ import Question from "../Question";
 import Equation from "../Equation";
 import RotationTextElement from "../RotationTextElement";
 import { getRandomChoice, getRandomInt } from "../../scripts/randomUtils";
+import { formatVec } from "../../scripts/formatUtils";
 
 function rotatePoint(point, angle, axis=[0, 0]) {
   const diff = [point[0] - axis[0], point[1] - axis[1]]
@@ -33,9 +34,11 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
   const endShape = midShape.map((point) => point.map((value, i) => value + translationVector[i]))
 
   const question = (<>
-    <p>Shape P is rotated <RotationTextElement angle={angle} /> about point Q to form shape R.</p>
-    <p>Shape R is translated by <Equation equation={`vec(${translationVector[0]}, ${translationVector[1]})`} /> to form shape S.</p>
-    <p>What single transformation maps shape P onto shape S?</p>
+    <p>
+      Shape P is rotated <RotationTextElement angle={angle} /> about point Q to form shape R.<br />
+      Shape R is translated by <Equation equation={formatVec(translationVector)} /> to form shape S.<br />
+      What single transformation maps shape P onto shape S?
+    </p>
     <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />
@@ -43,13 +46,15 @@ export default function RotationTranslationQuestion({ seed, showAnswer }) {
   </>)
 
   const answer = (<>
-    <p>Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.</p>
+    <p>
+      Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${axis2[0]}, ${axis2[1]})`} />.
+    </p>
     <Plot viewBox={viewBox}>
       <Polygon points={originalShape} label="P" colour="1" />
       <Point   point={         axis1} label="Q" colour="2" />
       <Polygon points={     midShape} label="R" colour="2" />
       <Polygon points={     endShape} label="S" colour="3" />
-      <Point   point={         axis2} colour="3" />
+      <Point   point={         axis2}           colour="3" />
     </Plot>
   </>)
 

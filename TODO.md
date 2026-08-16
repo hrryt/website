@@ -1,7 +1,8 @@
 # Fixes
-- Use KaTeX_Math font outside MathML
 - Match SVG IDs in production
-- Prevent components rendering outside graph bounds (with mask?) due to preserveAspectRatio
+- Hide components outside graph bounds (with mask?) due to preserveAspectRatio
+- Stop question windows rerendering when following links to different question windows
+- Adjust spacing for adding fractions
 
 # Questions
 - Improve adding fractions
@@ -9,7 +10,6 @@
   - Add graphing questions
     - Find all roots of this quintic (or something) polynomial (repeated root knowledge)
     - Transformations of shapes and graphs (curves)
-    - Refactor plotting context to add viewBox elements
 - Drop-down for finer controls
 - tricky parallel lines / internal angles etc questions
 - automate allQuestions using file exploration

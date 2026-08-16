@@ -6,7 +6,7 @@ import Point from "../plotting/Point";
 import Equation from "../Equation";
 import RotationTextElement from "../RotationTextElement";
 import { getRandomChoice, getRandomInt } from "../../scripts/randomUtils";
-import { formatLine } from "../../scripts/formatUtils";
+import { formatLine, formatVec } from "../../scripts/formatUtils";
 
 function reflectPoint(point, line = {a: 1, b: 1, c: 0}) {
   const [px, py] = point
@@ -62,9 +62,7 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
 
   const question = (<>
     <p>
-      Reflect P in <Equation equation={formatLine(line1)} /> then <Equation equation={formatLine(line2)} />.
-    </p>
-    <p>
+      Reflect P in <Equation equation={formatLine(line1)} /> then <Equation equation={formatLine(line2)} />.<br />
       What single transformation describes this?
     </p>
     <Plot viewBox={viewBox} width="300" height="300">
@@ -83,10 +81,10 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
   if (intersect === null) { // translation, lines parallel
     const xTrans = 2*(line1.c*line1.a - line2.c*line2.a)
     const yTrans = 2*(line1.c*line1.b - line2.c*line2.b)
-    answerTextElement = <p>Translation by vector <Equation equation={`vec(${xTrans}, ${yTrans})`} /></p>
+    answerTextElement = <p>Translation by vector <Equation equation={formatVec([xTrans, yTrans])} /></p>
   } else { // rotation
     const angle = 2*(getLineAngle(line2) - getLineAngle(line1))
-    answerTextElement = <p>Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${intersect[0]}, ${intersect[1]})`} /></p>
+    answerTextElement = <p>Rotation <RotationTextElement angle={angle} /> about <Equation equation={`(${intersect[0]}, ${intersect[1]}).`} /></p>
     answerGraphElement = <Point point={intersect} />
   }
   const answer = (<>

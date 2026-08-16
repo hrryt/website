@@ -45,20 +45,20 @@ function QuestionsItem({ id, label, questions }) {
   );
 }
 
-export default function QuestionIndex() {
+const items = allQuestions.map(({ id, label, questions }) =>
+  <QuestionsItem id={id} label={label} questions={questions} />
+);
 
-  const items = allQuestions.map(({ id, label, questions }) =>
-    <QuestionsItem id={id} label={label} questions={questions} />
+const routes = allQuestions.flatMap(({ id, questions }) => questions.map(question => {
+  const Component = lazy(() =>
+    import(`../data/questions/${id}/${question.id}.js`).then(m =>
+      () => <QuestionWindow data={m.data} title={question.label} />
+    )
   );
-  const routes = allQuestions.flatMap(({ id, label, questions }) => questions.map(question => {
-    const Component = lazy(() =>
-      import(`../data/questions/${id}/${question.id}.js`).then(
-        ({ data }) => () => <QuestionWindow data={data} title={question.label} />
-      )
-    );
-    return <Route path={`/${id}/${question.id}`} component={Component} />;
-  }));
+  return <Route path={`/${id}/${question.id}`} component={Component} />;
+}));
 
+export default function QuestionIndex() {
   return (
     <main>
       <nav class="sidebar">

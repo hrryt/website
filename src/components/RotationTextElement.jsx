@@ -9,5 +9,5 @@ export default function RotationTextElement({ angle }) {
   if (Math.abs(angle) == 180) { directionText = "" }
   else { directionText = angle < 180 ? 'clockwise' : 'anticlockwise' }
   angle = angle > 180 ? 360 - angle : angle
-  return <span><Equation equation={angle + 'degree'} /> {directionText}</span>
+  return <span><Equation equation={angle + '\\degree'} /> {directionText}</span>
 }

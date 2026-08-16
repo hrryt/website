@@ -16,7 +16,7 @@ export default function Home() {
     <main>
       <Window title="Home">
         <p>Hello World!</p>
-        <div class="field-border kern">
+        <div class="field-border">
           <Plot viewBox={[-5, -4, 8, 9]}>
             <Quadratic a={2} b={2} c={-2} colour="1" />
             <Polygon points={[[1,2], [-1,1], [-4,3]]} label="P" colour="2" />

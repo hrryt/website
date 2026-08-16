@@ -1,12 +1,10 @@
-import { useRef, useEffect } from 'preact/hooks';
-import { render } from 'kern-typ';
+import { render } from 'katex';
 
 export default function Equation({ equation, displayMode = false }) {
-  const ref = useRef(null);
 
-  useEffect(() => {
-    render(equation, ref.current, { displayMode: displayMode });
-  }, [equation]);
+  function renderEquation(dom) {
+    dom === null || render(equation, dom, { displayMode: displayMode });
+  }
 
-  return <span ref={ref}>{equation}</span>;
+  return <span ref={renderEquation}></span>;
 }

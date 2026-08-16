@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"98.css": "^0.1.21",
-		"kern-typ": "^0.2.0",
+		"katex": "^0.18.4",
 		"preact": "^10.26.9",
 		"preact-iso": "^2.12.1"
 	},

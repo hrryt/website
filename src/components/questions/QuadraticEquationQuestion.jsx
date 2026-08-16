@@ -12,9 +12,9 @@ function formatQuadraticExpression(a, b, c) {
 
 function formatRoots(l, m, n, o) {
   if (m / l == o / n) { return `x = ${formatFraction(-m, l)}`; }
-  if (-m / l == o / n) { return `x = plus.minus ${formatFraction(Math.abs(-m), l)}`; }
+  if (-m / l == o / n) { return `x = \\pm ${formatFraction(Math.abs(-m), l)}`; }
 
-  return `x = ${formatFraction(-m, l)} "or" x = ${formatFraction(-o, n)}`;
+  return `x = ${formatFraction(-m, l)} \\text{ or } x = ${formatFraction(-o, n)}`;
 }
 
 function formatFactor(x_coeff, const_coeff) {
@@ -73,7 +73,7 @@ export default function QuadraticEquationQuestion({ seed, showAnswer, aPlurality
   const c = m * o
 
   const quadratic = formatQuadraticExpression(a, b, c);
-  const question = factorise ? `"Factorise" ${quadratic}` : `"Solve" ${quadratic} = 0`;
+  const question = factorise ? `\\text{Factorise } ${quadratic}` : `\\text{Solve } ${quadratic} = 0`;
 
   const answer = factorise ? formatFactors(l, m, n, o) : formatRoots(l, m, n, o);
 
