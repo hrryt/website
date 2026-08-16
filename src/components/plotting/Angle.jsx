@@ -1,6 +1,6 @@
 import Label from './Label.jsx';
 import { useContext } from 'preact/hooks';
-import { StrokeWidthContext } from '../../scripts/contexts.js';
+import { PlotContext } from '../../scripts/contexts.js';
 import { getColourClass, getMidpoint, interpolateDistance, sumVectors, getVector } from '../../scripts/graphUtils.js';
 
 function getArc(points, radius) {
@@ -26,9 +26,9 @@ function AngleLabel({ points, radius, colour, children }) {
 }
 
 export default function Angle({ points, right = false, arcs = 1, label = null, colour = "auto" }) {
-  const strokeWidth = useContext(StrokeWidthContext);
-  const radius = 10 * strokeWidth;
-  const concentricGap = 1.5 * strokeWidth;
+  const p = useContext(PlotContext);
+  const radius = 10 * p.strokeWidth;
+  const concentricGap = 1.5 * p.strokeWidth;
   return (
     <g>
       {right ? (

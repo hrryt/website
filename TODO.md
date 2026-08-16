@@ -1,5 +1,6 @@
 # Fixes
 - Use KaTeX_Math font outside MathML
+- Match SVG IDs in production
 - Prevent components rendering outside graph bounds (with mask?) due to preserveAspectRatio
 
 # Questions

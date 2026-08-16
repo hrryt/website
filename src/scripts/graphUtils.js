@@ -31,11 +31,8 @@ export function getMidpoint(points) {
   return interpolate(points[0], points[1], 0.5);
 }
 
-export function getSymmetricBounds(midX, dx, viewBox) {
-  const [minX, minY, width, height] = viewBox;
-  const maxX = minX + width;
-
-  const maxDx = Math.max(midX - minX, maxX - midX);
+export function getSymmetricBounds(midX, dx, p) {
+  const maxDx = Math.max(midX - p.minX, p.maxX - midX);
   const dx0 = Math.min(maxDx, dx);
   return [midX - dx0, midX + dx0];
 }

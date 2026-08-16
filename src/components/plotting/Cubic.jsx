@@ -1,3 +1,5 @@
+import { useContext } from 'preact/hooks';
+import { PlotContext } from '../../scripts/contexts.js';
 import { getColourClass, getSymmetricBounds } from '../../scripts/graphUtils.js';
 
 function getDepressedCubicRoots(a, b, c, d) {
@@ -27,23 +29,21 @@ function getDepressedCubicRoots(a, b, c, d) {
   return [0,1,2].map(k => cosCoef * Math.cos(arccosine - kCoef * k));
 }
 
-export default function Cubic({ a=1, b=0, c=0, d=0, colour="auto", viewBox }) {
+export default function Cubic({ a=1, b=0, c=0, d=0, colour="auto" }) {
+  const p = useContext(PlotContext);
   // https://math.stackexchange.com/questions/3356084/to-construct-a-polynomial-using-b%C3%A9zier-curves
   // http://graphics.stanford.edu/courses/cs164-09-spring/Handouts/handout19.pdf
   function G(u, v, w) { return a*u*v*w + b*(v*w + w*u + u*v)/3 + c*(u + v + w)/3 + d; }
 
   const midX = -b / (3*a);
 
-  const [minX, minY, width, height] = viewBox;
-  const maxY = minY + height;
   const intercepts = [
-    ...getDepressedCubicRoots(a,b,c,d - minY),
-    ...getDepressedCubicRoots(a,b,c,d - maxY)
+    ...getDepressedCubicRoots(a,b,c,d - p.minY),
+    ...getDepressedCubicRoots(a,b,c,d - p.maxY)
   ];
-  console.log(intercepts.map(x => x + midX));
   const dx = Math.max(...intercepts.map(x => Math.abs(x)));
 
-  const [i, f] = getSymmetricBounds(midX, dx, viewBox);
+  const [i, f] = getSymmetricBounds(midX, dx, p);
 
   // https://math.stackexchange.com/questions/2414459/draw-cubic-polynomial-using-2d-cubic-bezier-curve
   const x1 = 2/3 * i + 1/3 * f;

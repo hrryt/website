@@ -1,13 +1,15 @@
+import { useContext } from 'preact/hooks';
+import { PlotContext } from '../../scripts/contexts.js';
 import { getColourClass } from '../../scripts/graphUtils.js';
 import { trueMod } from '../../scripts/mathsUtils.js';
 import Point from './Point.jsx';
 
-export default function Sinusoid({ period=1, amp=1, dx=0, dy=0, colour="auto", viewBox }) {
-  const [minX, minY, width, height] = viewBox;
+export default function Sinusoid({ period=1, amp=1, dx=0, dy=0, colour="auto" }) {
+  const p = useContext(PlotContext);
 
-  const offset = trueMod(minX - dx, period);
-  const x0 = minX - offset;
-  const periods = Math.ceil((width + offset) / period);
+  const offset = trueMod(p.minX - dx, period);
+  const x0 = p.minX - offset;
+  const periods = Math.ceil((p.width + offset) / period);
 
   const magicNumber = 0.3642124232;
   const halfPeriod = period /  2;

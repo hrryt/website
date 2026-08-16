@@ -1,17 +1,17 @@
+import { useContext } from 'preact/hooks';
+import { PlotContext } from '../../scripts/contexts.js';
 import { getColourClass } from "../../scripts/graphUtils"
 
-export default function Line({ line, viewBox, label=null, colour='auto' }) { 
-  const [ minX, minY, width, height ] = viewBox
-  const maxX = minX + width
-  const maxY = minY + height
+export default function Line({ line, label=null, colour='auto' }) {
+  const p = useContext(PlotContext);
 
-  const xPairs = [minX, maxX].map((x) => [x, (-line.c - line.a*x)/line.b])
-  const yPairs = [minY, maxY].map((y) => [(-line.c - line.b*y)/line.a, y])
+  const xPairs = [p.minX, p.maxX].map((x) => [x, (-line.c - line.a*x)/line.b])
+  const yPairs = [p.minY, p.maxY].map((y) => [(-line.c - line.b*y)/line.a, y])
 
   // important to do this for straight (y = c or x = c) lines.
   let points = []
-  xPairs.map((point) => { (point[1] >= minY && point[1] <= maxY) && points.push(point) })
-  yPairs.map((point) => { (point[0] > minX && point[0] < maxX) && points.push(point) })
+  xPairs.map((point) => { (point[1] >= p.minY && point[1] <= p.maxY) && points.push(point) })
+  yPairs.map((point) => { (point[0] > p.minX && point[0] < p.maxX) && points.push(point) })
 
   // points will always be two.
   const [i, f] = points

@@ -41,7 +41,7 @@ function randomLine(seed, lineType, excludedLine = {a: 100, b: 100, c: 100}) {
       f = (seed) => {return {a: 1, b: getRandomChoice([-1, 1], seed), c: 0}}
       break
   }
-  
+
   let output = excludedLine
   while (output.a == excludedLine.a && output.b == excludedLine.b && output.c == excludedLine.c) {
     output = f(seed++)
@@ -59,18 +59,18 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
 
   const line1 = randomLine(seed++, line1Type)
   const line2 = randomLine(seed++, line2Type, line1)
-  
+
   const question = (<>
     <p>
       Reflect P in <Equation equation={formatLine(line1)} /> then <Equation equation={formatLine(line2)} />.
     </p>
-    <p>  
+    <p>
       What single transformation describes this?
     </p>
     <Plot viewBox={viewBox} width="300" height="300">
       <Polygon points={originalShape} label="P" colour="1" />
-      <Line line={line1} colour="2" viewBox={viewBox} />
-      <Line line={line2} colour="3" viewBox={viewBox} />
+      <Line line={line1} colour="2" />
+      <Line line={line2} colour="3" />
     </Plot>
   </>)
 
@@ -95,12 +95,11 @@ export default function DoubleReflectionQuestion({ seed, showAnswer }) {
       <Polygon points={originalShape} label="P" colour="1" />
       <Polygon points={midShape} label="Q" colour="2" />
       <Polygon points={endShape} label="R" colour="3" />
-      <Line line={line1} colour="2" viewBox={viewBox} />
-      <Line line={line2} colour="3" viewBox={viewBox} />
+      <Line line={line1} colour="2" />
+      <Line line={line2} colour="3" />
       {answerGraphElement}
     </Plot>
   </>)
 
   return <Question question={question} answer={answer} showAnswer={showAnswer} />
 }
-

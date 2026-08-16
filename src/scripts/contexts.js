@@ -1,3 +1,3 @@
 import { createContext } from 'preact';
 
-export const StrokeWidthContext = createContext(null);
+export const PlotContext = createContext(null);
