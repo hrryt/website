@@ -1,21 +1,23 @@
-import { useLocation } from 'preact-iso';
+import { Link } from 'wouter-preact';
+
+function getActiveClass(active) {
+  return active ? "active" : "";
+}
 
 export default function Header() {
-	const { url } = useLocation();
-
-	return (
-		<header>
-			<nav class="window taskbar">
-			  <a href="/">
-          <button class={'taskbar-element' + (url == '/' ? ' active' : '')}>
+  return (
+    <header>
+      <nav class="window taskbar">
+        <Link href="/" className={getActiveClass}>
+          <button class="taskbar-element">
             Home
           </button>
-        </a>
-        <a href="/questions">
-          <button class={'taskbar-element' + (url.startsWith('/questions') ? ' active' : '')}>
+        </Link>
+        <Link href="/questions" className={getActiveClass}>
+          <button class="taskbar-element">
             Questions
           </button>
-        </a>
+        </Link>
 			</nav>
 		</header>
 	);

@@ -1,7 +1,6 @@
 # Fixes
 - Match SVG IDs in production
 - Hide components outside graph bounds (with mask?) due to preserveAspectRatio
-- Stop question windows rerendering when following links to different question windows
 - Adjust spacing for adding fractions
 
 # Questions
@@ -13,7 +12,6 @@
 - Drop-down for finer controls
 - tricky parallel lines / internal angles etc questions
 - automate allQuestions using file exploration
-- move away from prerendered questions?
 
 # Other stuff
 - minesweeper / youtube video.

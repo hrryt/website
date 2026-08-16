@@ -1,4 +1,5 @@
-import { lazy, Router, Route } from 'preact-iso';
+import { Route, Switch, Link } from 'wouter-preact';
+
 import QuestionWindow from '../components/QuestionWindow.jsx';
 
 const allQuestions = [{
@@ -23,9 +24,9 @@ const allQuestions = [{
 function QuestionItem({ id, question }) {
   return (
     <li>
-      <a href={`/questions/${id}/${question.id}`}>
+      <Link href={`/questions/${id}/${question.id}`}>
         {question.label}
-      </a>
+      </Link>
     </li>
   );
 }
@@ -49,14 +50,14 @@ const items = allQuestions.map(({ id, label, questions }) =>
   <QuestionsItem id={id} label={label} questions={questions} />
 );
 
-const routes = allQuestions.flatMap(({ id, questions }) => questions.map(question => {
-  const Component = lazy(() =>
-    import(`../data/questions/${id}/${question.id}.js`).then(m =>
-      () => <QuestionWindow data={m.data} title={question.label} />
-    )
-  );
-  return <Route path={`/${id}/${question.id}`} component={Component} />;
-}));
+const arr = await Promise.all(allQuestions.map(async ({ id, questions }) =>
+  await Promise.all(questions.map( async question => {
+    const m = await import(`../data/questions/${id}/${question.id}.js`);
+    function Component() { return <QuestionWindow data={m.data} title={question.label} />; }
+    return <Route path={`/questions/${id}/${question.id}`} component={Component} />;
+  }))
+));
+const routes = arr.flat();
 
 export default function QuestionIndex() {
   return (
@@ -66,9 +67,9 @@ export default function QuestionIndex() {
           {items}
         </ul>
       </nav>
-      <Router>
+      <Switch>
         {routes}
-      </Router>
+      </Switch>
     </main>
   );
 }

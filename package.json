@@ -10,10 +10,9 @@
 		"98.css": "^0.1.21",
 		"katex": "^0.18.4",
 		"preact": "^10.26.9",
-		"preact-iso": "^2.12.1"
+		"wouter-preact": "^3.10.0"
 	},
 	"devDependencies": {
-		"@preact/preset-vite": "^2.10.2",
-		"vite": "^7.0.4"
+		"vite": "^8.2.1"
 	}
 }
