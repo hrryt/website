@@ -1,5 +1,4 @@
 # Fixes
-- Match SVG IDs in production
 - Hide components outside graph bounds (with mask?) due to preserveAspectRatio
 - Adjust spacing for adding fractions
 
