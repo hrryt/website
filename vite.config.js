@@ -4,9 +4,11 @@ export default defineConfig({
   oxc: {
     jsx: {
       importSource: 'preact',
-    }
+    },
   },
-  build: {
-    cssMinify: false,
+  css: {
+    lightningcss: {
+      errorRecovery: true,
+    },
   },
 });
