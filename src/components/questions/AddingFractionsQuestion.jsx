@@ -7,7 +7,7 @@ function getRandomFraction(seed) {
   const num0 = getRandomInt(1, 5, seed++);
   const denom0 = getRandomInt(2, 10, seed++);
   const [num, denom] = simplifyFraction(num0, denom0);
-  if (denom == 1) { return getRandomFraction(seed++); }
+  if (denom == 1) return getRandomFraction(seed++);
   return [num, denom];
 }
 

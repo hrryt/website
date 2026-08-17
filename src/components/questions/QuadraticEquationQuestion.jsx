@@ -11,15 +11,15 @@ function formatQuadraticExpression(a, b, c) {
 }
 
 function formatRoots(l, m, n, o) {
-  if (m / l == o / n) { return `x = ${formatFraction(-m, l)}`; }
-  if (-m / l == o / n) { return `x = \\pm ${formatFraction(Math.abs(-m), l)}`; }
+  if (m / l == o / n) return `x = ${formatFraction(-m, l)}`;
+  if (-m / l == o / n) return `x = \\pm ${formatFraction(Math.abs(-m), l)}`;
 
   return `x = ${formatFraction(-m, l)} \\text{ or } x = ${formatFraction(-o, n)}`;
 }
 
 function formatFactor(x_coeff, const_coeff) {
-  if (const_coeff == 0) { return "x"; }
-  const fx_coeff = formatCoefficient(x_coeff, { showPlus: false, showOne: false, showZero: false, suffix: 'x'})
+  if (const_coeff == 0) return "x";
+  const fx_coeff = formatCoefficient(x_coeff, { showPlus: false, showOne: false, showZero: false, suffix: 'x' })
   const fconst_coeff = formatCoefficient(const_coeff, { showPlus: true, showOne: true, showZero: false })
   return `(${fx_coeff}${fconst_coeff})`;
 }
@@ -34,7 +34,7 @@ function formatFactors(l, m, n, o) {
   o = o / hcf2
 
   const fFrontCoefficient = formatCoefficient(frontCoefficient, {showPlus: false, showOne: false, showZero: true})
-  if (l == n && m == o) { return `${fFrontCoefficient}${formatFactor(l, m)}^2`}
+  if (l == n && m == o) return `${fFrontCoefficient}${formatFactor(l, m)}^2`
   return `${fFrontCoefficient}${formatFactor(l, m)}${formatFactor(n, o)}`
 }
 

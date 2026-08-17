@@ -17,7 +17,7 @@ function getDepressedCubicRoots(a, b, c, d) {
 
   if (discriminantish === 0) {
     // https://en.wikipedia.org/wiki/Cubic_equation#Multiple_root
-    if (p === 0) { return [0,0,0]; }
+    if (p === 0) return [0,0,0];
     const doubleRoot = -3*q/(2*p);
     return [3*q/p, doubleRoot, doubleRoot];
   }

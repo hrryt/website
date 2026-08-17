@@ -5,7 +5,7 @@ export function formatVec(arr) {
 }
 
 export function formatCoefficient(x, parameters = { showPlus: false, showOne: true, showZero: true, suffix: '' }) {
-  if (!parameters.showZero && x == 0) { return ''; }
+  if (!parameters.showZero && x == 0) return '';
   const plus = parameters.showPlus ? '+' : '';
   const sign = x < 0 ? '-' : plus;
   x = Math.abs(x);
@@ -15,8 +15,8 @@ export function formatCoefficient(x, parameters = { showPlus: false, showOne: tr
 
 // this thing is probably begging for bugs from simplification and zeroes.
 export function formatFraction(num, denom, parameters = { showPlus: false, showOne: true, showZero: true, simplify: false, suffix: '' }) {
-  if (!parameters.showZero && num == 0) { return ''; }
-  if (getHCF(num, denom) == denom && parameters.simplify) { return formatCoefficient(simplifyFraction(num, denom)[0], parameters)}
+  if (!parameters.showZero && num == 0) return '';
+  if (getHCF(num, denom) == denom && parameters.simplify) return formatCoefficient(simplifyFraction(num, denom)[0], parameters)
   const plus = parameters.showPlus ? '+' : ''
   const sign = num / denom < 0 ? '-' : plus
 
@@ -31,7 +31,7 @@ export function formatFraction(num, denom, parameters = { showPlus: false, showO
 }
 
 export function formatLine(line) {
-  if (line.b == 0) { return `x = ${formatFraction(-line.c, line.a, { showPlus: false, showOne: true, showZero: true, simplify: true })}`; }
+  if (line.b == 0) return `x = ${formatFraction(-line.c, line.a, { showPlus: false, showOne: true, showZero: true, simplify: true })}`;
   let mxTerm = formatFraction(-line.a, line.b, { showPlus: false, showOne: false, showZero: false, simplify: true, suffix: 'x' })
   const cTerm = formatFraction(-line.c, line.b, { showPlus: false, showOne: true, showZero: false, simplify: true })
   if (!mxTerm && !cTerm) {

@@ -1,7 +1,7 @@
 import Equation from './Equation.jsx';
 
 function maybeEquation(expression) {
-  if (typeof expression == 'string') { return <Equation equation={expression} />; }
+  if (typeof expression == 'string') return <Equation equation={expression} />;
   return expression;
 }
 

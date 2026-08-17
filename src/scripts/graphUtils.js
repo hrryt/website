@@ -38,6 +38,6 @@ export function getSymmetricBounds(midX, dx, p) {
 }
 
 export function getColourClass(colour) {
-  if (colour == 'auto') { return ''; }
+  if (colour == 'auto') return '';
   return `color-${colour}`;
 }

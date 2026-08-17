@@ -1,5 +1,5 @@
 export function getHCF(a, b) {
-  if (a == 1 && b == 1) { return 1 }
+  if (a == 1 && b == 1) return 1;
   return b == 0 ? a : getHCF(b, a % b);
 }
 

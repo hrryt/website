@@ -28,14 +28,14 @@ function AxisTicks() {
         <g>
           {Array.from({ length: p.width - 1 }).map((_, i) => {
             const x = i + p.minX + 1;
-            if (x % every || x === 0) { return; }
+            if (x % every || x === 0) return;
             return <Label point={[x, 0]} position="bottom">{x}</Label>;
           })}
         </g>
         <g>
           {Array.from({ length: p.height - 1 }).map((_, i) => {
             const y = i + p.minY + 1;
-            if (y % every || y === 0) { return; }
+            if (y % every || y === 0) return;
             return <Label point={[0, y]} position="left">{y}</Label>;
           })}
         </g>
