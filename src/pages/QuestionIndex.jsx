@@ -1,70 +1,61 @@
 import { Route, Switch, Link } from 'wouter-preact';
-
 import QuestionWindow from '../components/QuestionWindow.jsx';
+const data = import.meta.glob('./*/*.js', {
+  eager: true, import: 'data', base: '../data/questions'
+});
 
-const allQuestions = [{
-  id: 'gcse',
-  label: 'GCSE',
-  questions: [{
-    id: 'quadratic-equations',
-    label: 'Quadratic Equations'
-  }, {
-    id: 'adding-fractions',
-    label: 'Adding Fractions'
-  }, {
-    id: 'double-transformations',
-    label: 'Double Transformations'
-  }]
-}, {
-  id: 'a-level',
-  label: 'A-Level',
-  questions: []
-}]
+function getHref(path) {
+  const relative = path.match(/\.\/(.+).js/)[1];
+  return `/questions/${relative}`;
+}
 
-function QuestionItem({ id, question }) {
+function QuestionLink({ href, title }) {
   return (
     <li>
-      <Link href={`/questions/${id}/${question.id}`}>
-        {question.label}
+      <Link href={href}>
+        {title}
       </Link>
     </li>
   );
 }
 
-function QuestionsItem({ id, label, questions }) {
+const tree = { };
+for (const path in data) {
+  const category = path.match(/^\.\/(.+)\//)[1];
+  tree[category] ??= [];
+  tree[category].push(
+    <QuestionLink href={getHref(path)} title={data[path].title} />
+  );
+}
+
+function Category({ category, questionLinks }) {
   return (
     <li>
       <details open>
-        <summary>{label}</summary>
+        <summary>{category}</summary>
         <ul>
-          {questions.map(question =>
-            <QuestionItem id={id} question={question} />
-          )}
+          {questionLinks}
         </ul>
       </details>
     </li>
   );
 }
 
-const items = allQuestions.map(({ id, label, questions }) =>
-  <QuestionsItem id={id} label={label} questions={questions} />
+const categories = Object.keys(tree).map(category =>
+  <Category category={category} questionLinks={tree[category]} />
 );
 
-const arr = await Promise.all(allQuestions.map(async ({ id, questions }) =>
-  await Promise.all(questions.map( async question => {
-    const m = await import(`../data/questions/${id}/${question.id}.js`);
-    function Component() { return <QuestionWindow data={m.data} title={question.label} />; }
-    return <Route path={`/questions/${id}/${question.id}`} component={Component} />;
-  }))
-));
-const routes = arr.flat();
+const routes = Object.keys(data).map(path => {
+  function Component() { return <QuestionWindow data={data[path]} />; }
+  return <Route path={getHref(path)} component={Component} />;
+})
 
 export default function QuestionIndex() {
   return (
     <main>
       <nav class="sidebar">
         <ul class="tree-view">
-          {items}
+          {categories}
         </ul>
       </nav>
       <Switch>

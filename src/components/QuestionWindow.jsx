@@ -34,7 +34,7 @@ function shuffleArray(arr, n, seed) {
   return Array.from({ length: n }).map(() => getRandomChoice(arr, ++seed));
 }
 
-export default function QuestionWindow({ data, title }) {
+export default function QuestionWindow({ data }) {
 
   const dataVariables = data.variables ?? [];
 
@@ -73,7 +73,7 @@ export default function QuestionWindow({ data, title }) {
   });
 
   return (
-    <Window title={title}>
+    <Window title={data.title}>
       {fields}
       <fieldset>
         <legend>Options</legend>

@@ -2,6 +2,7 @@ import QuadraticEquationQuestion from '/src/components/questions/QuadraticEquati
 import MultipleSelection from '/src/components/MultipleSelection.jsx';
 
 export const data = {
+  title: 'Quadratic Equations',
   variables: [{
     id: 'framing',
     legend: 'Framing',

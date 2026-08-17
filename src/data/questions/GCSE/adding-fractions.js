@@ -1,6 +1,7 @@
 import AddingFractionsQuestion from '/src/components/questions/AddingFractionsQuestion.jsx';
 
 export const data = {
+  title: 'Adding Fractions',
   questionLists: [{
     id: 0,
     n: 10,
