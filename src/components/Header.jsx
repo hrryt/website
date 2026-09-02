@@ -18,6 +18,11 @@ export default function Header() {
             Questions
           </button>
         </Link>
+        <Link href="/renderer" className={getActiveClass}>
+          <button class="taskbar-element">
+            KaTeX Renderer
+          </button>
+        </Link>
 			</nav>
 		</header>
 	);

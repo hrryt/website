@@ -5,6 +5,7 @@ import Header from './components/Header.jsx';
 
 import Home from './pages/Home.jsx';
 import QuestionIndex from './pages/QuestionIndex.jsx';
+import KatexRenderer from './pages/KatexRenderer.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 import './styles/index.css';
@@ -17,6 +18,7 @@ export function App() {
         <Route path="/" component={Home} />
         <Route path="/questions" component={QuestionIndex} />
         <Route path="/questions/*" component={QuestionIndex} />
+        <Route path="/renderer" component={KatexRenderer} />
         <Route component={NotFound} />
       </Switch>
     </>
