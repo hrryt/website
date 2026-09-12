@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import Equation from '../components/Equation.jsx';
 import Window from '../components/Window.jsx'
- 
+
 export default function KatexRenderer() {
   const [text, setText] = useState("")
   const textRef = useRef(null)
@@ -18,14 +18,14 @@ export default function KatexRenderer() {
     <main>
       <Window title="KaTeX Renderer">
         <p>Hello World!</p>
-        <textarea 
+        <textarea
           class="field-border"
-          placeholder="Typst Syntax Here..."
+          placeholder="LaTeX code here..."
           value={text}
           ref={textRef}
           onChange={e => updateText(e)}
         />
-        <div className="field-border">
+        <div class="field-border">
           <Equation equation={text} />
         </div>
       </Window>
