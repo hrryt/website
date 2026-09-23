@@ -7,7 +7,6 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"98.css": "^0.1.21",
 		"katex": "^0.18.4",
 		"preact": "^10.26.9",
 		"wouter-preact": "^3.10.0"
