@@ -7,8 +7,8 @@ cd stagit
 stagit ..
 cp log.html index.html
 cp ../stagit.css style.css
-cp ../stagit.png logo.png
-cp ../stagit.png favicon.png
+cp ../icon.png logo.png
+cp ../icon.png favicon.png
 cp -r ../../website.git website.git
 cd ..
 

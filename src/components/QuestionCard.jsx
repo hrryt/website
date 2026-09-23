@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import QuestionList from './QuestionList.jsx';
-import Window from './Window.jsx';
+import Card from './Card.jsx';
 import { getRandomChoice, getRandomNumber } from '../scripts/randomUtils.js';
 
 const seedDiff = 100;
@@ -34,7 +34,7 @@ function shuffleArray(arr, n, seed) {
   return Array.from({ length: n }).map(() => getRandomChoice(arr, ++seed));
 }
 
-export default function QuestionWindow({ data }) {
+export default function QuestionCard({ data }) {
 
   const dataVariables = data.variables ?? [];
 
@@ -73,7 +73,7 @@ export default function QuestionWindow({ data }) {
   });
 
   return (
-    <Window title={data.title}>
+    <Card title={data.title}>
       {fields}
       <fieldset>
         <legend>Options</legend>
@@ -89,6 +89,6 @@ export default function QuestionWindow({ data }) {
           {questions}
         </ol>
       </div>
-    </Window>
+    </Card>
   );
 }

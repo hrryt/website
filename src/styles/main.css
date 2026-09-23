@@ -1,9 +1,13 @@
 :root {
-  --highlight: #008080;
+  --highlight:        #d7834f;
+  --background:       #2a2a2a;
+  --main-bg:          #333333;
+  --main-border:      #5e5e5a;
+  --font-color:       #b3b1b1;
+  --light-font-color: #bdbbb0;
+  --nav-link-color:   #979594;
 
-  --background: var(--highlight);
-
-  --graph-1: var(--highlight);
+  --graph-1: #008080;
   --graph-2: #43509E;
   --graph-3: #DC267F;
   --graph-4: #FE6100;
@@ -12,30 +16,106 @@
 
 body {
   background-color: var(--background);
-  margin: 0;
+  color: var(--font-color);
+  font-family: Adelle,Roboto Slab,DejaVu Serif,Georgia,Times New Roman,sans-serif;
+  width: 940px;
+  margin: 0 auto;
 }
 
-nav.taskbar {
-  width: 100vw;
+div#sidebar-and-main {
+  display: flex;
 }
 
-a.active > button.taskbar-element {
-  font-weight: bold;
-  box-shadow: inset -1px -1px #ffffff, inset 1px 1px #0a0a0a,
-  inset -2px -2px #dfdfdf, inset 2px 2px #808080;
+main {
+  background-color: var(--main-bg);
+  border: solid 1px var(--main-border);
+  padding: 22px;
+  width: 670px;
 }
 
-.window {
-  width: fit-content;
+nav#sidebar {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 25px;
+  margin-right: 20px;
+  min-width: 250px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 25px;
+  margin-bottom: 1.4em;
+}
+
+a {
+  text-decoration: none;
+  color: var(--highlight);
+}
+
+nav#sidebar > ul {
+  padding-left: 0;
+}
+
+nav#sidebar details {
+  font-size: 13px;
+  font-weight: 400;
+}
+
+nav#sidebar a {
+  transition-duration: .3s;
+  transition-property: color;
+  background-color: initial;
+  color: var(--nav-link-color);
+}
+
+nav#sidebar :is(a.active,a:hover) {
+  color: var(--highlight);
+}
+
+header {
+  padding: 1rem 0;
+  display: grid;
+  grid-template-areas: "logo tagline";
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+header #logo {
+  grid-area: logo;
+}
+
+header #tagline {
+  grid-area: tagline;
+  margin-left: .8em;
+  font-size: clamp(.8rem,2vw,1.3rem);
+  color: var(--light-font-color);
 }
 
 fieldset {
   margin-bottom: 7px;
+  border: solid 1px var(--main-border);
+}
+
+button {
+  background-color: var(--background);
+  border: solid 1px var(--main-border);
+  color: var(--font-color);
+}
+
+textarea {
+  background-color: var(--background);
+  border: solid 1px var(--main-border);
+  color: var(--font-color);
+  width: 100%;
 }
 
 .field-border {
   font-size: large;
   padding: 20px;
+  margin-top: 20px;
+  background-color: white;
+  color: black;
+  border: solid 8px var(--highlight);
 }
 
 ol.master-question-list {
@@ -51,23 +131,8 @@ ol.question-list {
   list-style-type: lower-latin;
 }
 
-main {
-  padding: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-nav.sidebar {
-  width: 200px;
-}
-
 button {
   margin-right: 3px;
-}
-
-button.window-button {
-  margin-right: 0;
 }
 
 img.http-error {
